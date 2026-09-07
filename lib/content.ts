@@ -239,7 +239,6 @@ export const copy = {
     formatsTitle: 'Формати подорожей',
     workTitle: 'Як ми працюємо',
     conciergeTitle: 'Concierge',
-    principlesTitle: 'Принципи сервісу',
     ownersTitle: 'Співвласники',
     finalTitle: 'Розкажіть, якою ви уявляєте наступну подорож',
     finalText:
@@ -263,7 +262,6 @@ export const copy = {
     formatsTitle: 'Travel formats',
     workTitle: 'How we work',
     conciergeTitle: 'Concierge',
-    principlesTitle: 'Service principles',
     ownersTitle: 'Co-owners',
     finalTitle: 'Tell us what your next journey should feel like',
     finalText:
@@ -307,25 +305,6 @@ export const conciergeItems = {
     'personal guides',
     'special event arrangements',
     'route changes and on-trip support',
-  ],
-};
-
-export const principles = {
-  ua: [
-    'одна контактна особа на всіх етапах',
-    'перевірені партнери',
-    'прозорий бюджет',
-    'конфіденційність',
-    'підтримка під час подорожі',
-    'резервні сценарії у складній логістиці',
-  ],
-  en: [
-    'one contact person throughout',
-    'trusted partners',
-    'transparent budget',
-    'confidentiality',
-    'support during the trip',
-    'backup scenarios for complex logistics',
   ],
 };
 

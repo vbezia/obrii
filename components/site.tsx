@@ -31,7 +31,6 @@ import {
   heroPanels,
   offers,
   owners,
-  principles,
   site,
   tripFormats,
   workSteps,
@@ -554,17 +553,6 @@ export function HomePage() {
                 <h3>{title}</h3>
                 <p>{text}</p>
               </article>
-            ))}
-          </div>
-        </section>
-        <section className="section principles">
-          <div className="section-heading">
-            <p className="eyebrow">Trust</p>
-            <h2>{t.principlesTitle}</h2>
-          </div>
-          <div className="principle-grid">
-            {principles[locale].map((item) => (
-              <p key={item}>{item}</p>
             ))}
           </div>
         </section>
