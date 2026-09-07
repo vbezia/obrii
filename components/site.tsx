@@ -384,7 +384,6 @@ function OwnerPortrait({
   const pointerRef = useRef({ x: 0, y: 0, radius: 110 });
   const revealReadyRef = useRef(false);
   const [revealReady, setRevealReady] = useState(false);
-  const [showHoliday, setShowHoliday] = useState(false);
 
   useEffect(
     () => () => {
@@ -397,7 +396,6 @@ function OwnerPortrait({
 
   const updatePointer = (event: React.PointerEvent<HTMLDivElement>) => {
     if (
-      showHoliday ||
       !revealReadyRef.current ||
       !window.matchMedia('(hover: hover) and (pointer: fine)').matches
     ) {
@@ -430,7 +428,7 @@ function OwnerPortrait({
 
   const showPointerReveal = (event: React.PointerEvent<HTMLDivElement>) => {
     updatePointer(event);
-    if (revealReadyRef.current && !showHoliday) {
+    if (revealReadyRef.current) {
       frameRef.current?.style.setProperty('--reveal-opacity', '1');
     }
   };
@@ -442,11 +440,7 @@ function OwnerPortrait({
   return (
     <div
       ref={frameRef}
-      className={cn(
-        'owner-photo-frame',
-        revealReady && 'is-ready',
-        showHoliday && 'is-toggled',
-      )}
+      className={cn('owner-photo-frame', revealReady && 'is-ready')}
       onPointerEnter={showPointerReveal}
       onPointerMove={updatePointer}
       onPointerLeave={hidePointerReveal}
@@ -473,22 +467,8 @@ function OwnerPortrait({
         onError={() => {
           revealReadyRef.current = false;
           setRevealReady(false);
-          setShowHoliday(false);
         }}
       />
-      {revealReady && (
-        <button
-          type="button"
-          className="owner-photo-toggle"
-          aria-pressed={showHoliday}
-          onClick={() => {
-            hidePointerReveal();
-            setShowHoliday((visible) => !visible);
-          }}
-        >
-          {showHoliday ? 'Робоче фото' : 'На відпочинку'}
-        </button>
-      )}
     </div>
   );
 }
@@ -557,8 +537,7 @@ export function HomePage() {
           </div>
         </section>
         <section className="section owners">
-          <div className="section-heading">
-            <p className="eyebrow">OBRII</p>
+          <div className="section-heading owner-heading">
             <h2>{t.ownersTitle}</h2>
           </div>
           <div className="owner-grid">
