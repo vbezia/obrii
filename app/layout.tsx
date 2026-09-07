@@ -1,18 +1,15 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { seo } from '@/lib/content';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://obrii.travel'),
-  title: {
-    default: 'OBRII | Індивідуальні подорожі та concierge',
-    template: '%s | OBRII',
-  },
-  description:
-    'Преміальна українська турагенція для VIP-туризму, індивідуальних подорожей, concierge і подієвих поїздок.',
+  metadataBase: new URL(seo.url),
+  title: { default: seo.title, template: '%s | OBRII' },
+  description: seo.description,
   openGraph: {
-    title: 'OBRII',
-    description: 'Індивідуальні подорожі, створені навколо вас.',
-    images: ['/assets/hero/mountain.png'],
+    title: seo.title,
+    description: seo.description,
+    images: [seo.image],
     locale: 'uk_UA',
     type: 'website',
   },

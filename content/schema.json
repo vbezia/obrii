@@ -1,0 +1,217 @@
+{
+  "conciergeItems": {
+    "ua": ["приватна авіація та VIP-сервіси в аеропортах"],
+    "en": ["private aviation and VIP airport services"]
+  },
+  "copy": {
+    "ua": {
+      "nav": ["Подорожі"],
+      "heroTitle": "Подорожі, створені навколо вас",
+      "heroText": "Від першої ідеї до повернення додому персонально плануємо маршрут і беремо на себе кожну деталь.",
+      "primaryCta": "Підібрати подорож",
+      "secondaryCta": "Познайомитися з сервісом",
+      "selectedTrips": "Актуальні подорожі",
+      "demoNotice": "Демонстраційний контент. Доступність і бюджет уточнюються менеджером.",
+      "collectionLink": "Увесь каталог",
+      "similar": "Створити схожу подорож",
+      "manifestTitle": "Ми не починаємо з каталогу. Ми починаємо з людини.",
+      "manifest": "OBRII створює індивідуальні подорожі для тих, хто цінує час, приватність і впевненість у деталях. Ви описуєте бажаний досвід, а команда збирає маршрут, логістику, бронювання та супровід у єдину спокійну систему.",
+      "formatsTitle": "Формати подорожей",
+      "workTitle": "Як ми працюємо",
+      "conciergeTitle": "Concierge",
+      "ownersTitle": "Співвласники",
+      "finalTitle": "Розкажіть, якою ви уявляєте наступну подорож",
+      "finalText": "Форма збере ключові побажання, а менеджер OBRII повернеться з уточненнями для персонального підбору."
+    },
+    "en": {
+      "nav": ["Travel"],
+      "heroTitle": "Journeys arranged around you",
+      "heroText": "From the first idea to the return home, we plan the route personally and take care of every detail.",
+      "primaryCta": "Plan your trip",
+      "secondaryCta": "Explore service",
+      "selectedTrips": "Private collection",
+      "demoNotice": "Demo content. Availability and budget are confirmed by a manager.",
+      "collectionLink": "Full catalog",
+      "similar": "Create a similar trip",
+      "manifestTitle": "We do not start with a catalog. We start with the person.",
+      "manifest": "OBRII creates individual journeys for people who value time, privacy and confidence in the details. You describe the desired experience, and the team assembles route, logistics, reservations and support into one calm system.",
+      "formatsTitle": "Travel formats",
+      "workTitle": "How we work",
+      "conciergeTitle": "Concierge",
+      "ownersTitle": "Co-owners",
+      "finalTitle": "Tell us what your next journey should feel like",
+      "finalText": "The form captures the essentials, then an OBRII manager follows up to refine a personal proposal."
+    }
+  },
+  "heroPanels": [
+    {
+      "id": "beach",
+      "image": "/assets/hero/beach.png",
+      "alt": {
+        "ua": "Приватний пляж із білим піском і лазурним морем",
+        "en": "Private white sand beach with turquoise sea"
+      }
+    }
+  ],
+  "offers": [
+    {
+      "id": "OBRII-DEMO-001",
+      "slug": "private-villa-como",
+      "featured": true,
+      "order": 1,
+      "title": {
+        "ua": "Тиждень на приватній віллі на Комо",
+        "en": "A Week at a Private Villa on Como"
+      },
+      "destination": {
+        "ua": "Італія, Ломбардія",
+        "en": "Italy, Lombardy"
+      },
+      "format": {
+        "ua": "Яхти та вілли",
+        "en": "Yachts and villas"
+      },
+      "season": {
+        "ua": "Травень - жовтень",
+        "en": "May - October"
+      },
+      "duration": {
+        "ua": "7-10 днів",
+        "en": "7-10 days"
+      },
+      "image": "/assets/offers/como-villa.png",
+      "excerpt": {
+        "ua": "Приватний ритм озера, резиденція з сервісом і делікатна логістика для сімейної або камерної подорожі.",
+        "en": "A private lake rhythm, serviced residence and discreet logistics for a family or intimate escape."
+      },
+      "published": true,
+      "description": {
+        "ua": "",
+        "en": ""
+      }
+    }
+  ],
+  "owners": [
+    {
+      "name": {
+        "ua": "Безрук Владислав",
+        "en": "Vladyslav Bezruk"
+      },
+      "role": {
+        "ua": "Співвласник",
+        "en": "Co-owner"
+      },
+      "note": {
+        "ua": "10+ років у туристичній сфері",
+        "en": "10+ years in travel"
+      },
+      "image": "/assets/team/vladyslav-bezruk.jpg",
+      "holidayImage": "/assets/team/vladyslav-bezruk-holiday.webp",
+      "imagePosition": "50% 50%",
+      "holidayImagePosition": "50% 50%"
+    }
+  ],
+  "site": {
+    "name": "OBRII",
+    "phone": "+38 000 000 00 00",
+    "telegram": "@obrii_travel",
+    "whatsapp": "+38 000 000 00 00",
+    "email": "hello@obrii.travel"
+  },
+  "tripFormats": [
+    {
+      "ua": "Пляжний відпочинок",
+      "en": "Beach escapes"
+    }
+  ],
+  "workSteps": {
+    "ua": [["Знайомство"]],
+    "en": [["Discovery"]]
+  },
+  "formatCards": {
+    "ua": [["Private escapes"]],
+    "en": [["Private escapes"]]
+  },
+  "pages": {
+    "individual": {
+      "title": {
+        "ua": "Індивідуальні подорожі",
+        "en": "Individual travel"
+      },
+      "text": {
+        "ua": "Персональний travel-дизайнер збирає маршрут навколо ваших очікувань, ритму, складу подорожі та бюджету.",
+        "en": "A personal travel designer builds the route around your expectations, rhythm, travelers and budget."
+      }
+    },
+    "concierge": {
+      "title": {
+        "ua": "Консьєрж",
+        "en": "Concierge"
+      },
+      "text": {
+        "ua": "OBRII координує складові поїздки: авіацію, трансфери, вілли, яхти, ресторани, події, гідів і зміни маршруту.",
+        "en": "OBRII coordinates aviation, transfers, villas, yachts, restaurants, events, guides and route changes."
+      }
+    },
+    "about": {
+      "title": {
+        "ua": "Про агенцію",
+        "en": "About OBRII"
+      },
+      "text": {
+        "ua": "OBRII працює з приватними подорожами, concierge і подієвим туризмом. У центрі процесу людина, а не готовий пакет.",
+        "en": "OBRII works with private travel, concierge and event tourism. The process starts with the person, not a package."
+      }
+    },
+    "privacy": {
+      "title": {
+        "ua": "Політика конфіденційності",
+        "en": "Privacy policy"
+      },
+      "text": {
+        "ua": "Ця сторінка є заготовкою. Перед запуском потрібно додати юридично затверджений текст політики обробки персональних даних.",
+        "en": "This page is a draft. Add legally approved personal data processing text before launch."
+      }
+    },
+    "cookies": {
+      "title": {
+        "ua": "Політика cookies",
+        "en": "Cookie policy"
+      },
+      "text": {
+        "ua": "Аналітичні та маркетингові cookies мають вмикатися тільки після належної згоди користувача.",
+        "en": "Analytics and marketing cookies should be enabled only after proper user consent."
+      }
+    },
+    "terms": {
+      "title": {
+        "ua": "Умови користування",
+        "en": "Terms of use"
+      },
+      "text": {
+        "ua": "Ця сторінка є заготовкою для умов користування та юридичних реквізитів.",
+        "en": "This page is a draft for terms of use and legal details."
+      }
+    }
+  },
+  "seo": {
+    "title": "OBRII | Індивідуальні подорожі та concierge",
+    "description": "Преміальна українська турагенція для VIP-туризму, індивідуальних подорожей, concierge і подієвих поїздок.",
+    "url": "https://obrii.vercel.app",
+    "image": "/assets/hero/mountain.png"
+  },
+  "footer": {
+    "description": {
+      "ua": "Індивідуальні подорожі, concierge і подієвий туризм.",
+      "en": "Private travel, concierge and event tourism."
+    },
+    "legal": {
+      "ua": "Реквізити юридичної особи та туроператорські дані потрібно додати перед запуском.",
+      "en": "Legal entity and tour operator details should be added before launch."
+    }
+  },
+  "detailNote": {
+    "ua": "Це не підтверджена наявність і не пакетний тур. Менеджер OBRII збере схожий сценарій під ваші дати, склад подорожі та бюджет.",
+    "en": "Availability is confirmed by a manager. We will arrange a similar journey around your dates and budget."
+  }
+}

@@ -27,6 +27,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import {
   copy,
+  formatCards,
+  pages,
+  footer,
+  detailNote,
   getOffer,
   heroPanels,
   offers,
@@ -36,58 +40,6 @@ import {
   workSteps,
   type Locale,
 } from '@/lib/content';
-
-const formatCards = {
-  ua: [
-    [
-      'Private escapes',
-      'Тиша, приватні простори, готелі й резиденції з правильним ритмом.',
-    ],
-    [
-      'Сімейні подорожі',
-      'Маршрути, де дітям комфортно, а дорослим не потрібно координувати дрібниці.',
-    ],
-    [
-      'Яхти та вілли',
-      'Команда, сервіс, маршрути і берегові зупинки під ваш темп.',
-    ],
-    [
-      'Wellness і retreat',
-      'Відновлення без показної розкоші, з фокусом на тишу та якість.',
-    ],
-    ['Гастрономія', 'Резервації, локальні експерти і маршрути навколо смаку.'],
-    [
-      'Події',
-      'Hospitality, квитки, проживання і приватна програма навколо події.',
-    ],
-  ],
-  en: [
-    [
-      'Private escapes',
-      'Quiet places, private spaces and stays with the right rhythm.',
-    ],
-    [
-      'Family journeys',
-      'Routes where children are comfortable and adults do not coordinate details.',
-    ],
-    [
-      'Yachts and villas',
-      'Crew, service, routes and shore stops around your pace.',
-    ],
-    [
-      'Wellness retreats',
-      'Recovery without loud luxury, focused on privacy and quality.',
-    ],
-    [
-      'Gastronomy',
-      'Reservations, local experts and routes built around taste.',
-    ],
-    [
-      'Events',
-      'Hospitality, tickets, stays and a private program around the event.',
-    ],
-  ],
-};
 
 function withLocale(path: string, locale: Locale) {
   const joiner = path.includes('?') ? '&' : '?';
@@ -192,17 +144,18 @@ function Footer({ locale }: { locale: Locale }) {
     <footer className="footer">
       <div>
         <img src="/assets/brand/logo.png" alt="OBRII" />
-        <p>
-          {locale === 'ua'
-            ? 'Індивідуальні подорожі, concierge і подієвий туризм.'
-            : 'Private travel, concierge and event tourism.'}
-        </p>
+        <p>{footer.description[locale]}</p>
       </div>
       <div>
         <h2>{locale === 'ua' ? 'Контакти' : 'Contacts'}</h2>
         <a href={`tel:${site.phone.replaceAll(' ', '')}`}>{site.phone}</a>
         <a href={`mailto:${site.email}`}>{site.email}</a>
-        <a href="https://t.me/obrii_travel">{site.telegram}</a>
+        <a href={`https://wa.me/${site.whatsapp.replace(/\D/g, '')}`}>
+          WhatsApp · {site.whatsapp}
+        </a>
+        <a href={`https://t.me/${site.telegram.replace(/^@/, '')}`}>
+          {site.telegram}
+        </a>
       </div>
       <div>
         <h2>{locale === 'ua' ? 'Документи' : 'Documents'}</h2>
@@ -216,11 +169,7 @@ function Footer({ locale }: { locale: Locale }) {
       </div>
       <div>
         <h2>{locale === 'ua' ? 'Примітка' : 'Note'}</h2>
-        <p>
-          {locale === 'ua'
-            ? 'Реквізити юридичної особи та туроператорські дані потрібно додати перед запуском.'
-            : 'Legal entity and tour operator details should be added before launch.'}
-        </p>
+        <p>{footer.legal[locale]}</p>
       </div>
     </footer>
   );
@@ -1553,54 +1502,13 @@ export function StaticPage({
     if (new URLSearchParams(window.location.search).get('lang') === 'en')
       setLocale('en');
   }, []);
-  const pageCopy = {
-    individual: {
-      title: locale === 'ua' ? 'Індивідуальні подорожі' : 'Individual travel',
-      text:
-        locale === 'ua'
-          ? 'Персональний travel-дизайнер збирає маршрут навколо ваших очікувань, ритму, складу подорожі та бюджету.'
-          : 'A personal travel designer builds the route around your expectations, rhythm, travelers and budget.',
-    },
-    concierge: {
-      title: locale === 'ua' ? 'Консьєрж' : 'Concierge',
-      text:
-        locale === 'ua'
-          ? 'OBRII координує складові поїздки: авіацію, трансфери, вілли, яхти, ресторани, події, гідів і зміни маршруту.'
-          : 'OBRII coordinates aviation, transfers, villas, yachts, restaurants, events, guides and route changes.',
-    },
-    about: {
-      title: locale === 'ua' ? 'Про агенцію' : 'About OBRII',
-      text:
-        locale === 'ua'
-          ? 'OBRII працює з приватними подорожами, concierge і подієвим туризмом. У центрі процесу людина, а не готовий пакет.'
-          : 'OBRII works with private travel, concierge and event tourism. The process starts with the person, not a package.',
-    },
-    contacts: {
-      title: locale === 'ua' ? 'Контакти' : 'Contacts',
-      text: `${site.phone} · ${site.telegram} · ${site.email}`,
-    },
-    privacy: {
-      title: locale === 'ua' ? 'Політика конфіденційності' : 'Privacy policy',
-      text:
-        locale === 'ua'
-          ? 'Ця сторінка є заготовкою. Перед запуском потрібно додати юридично затверджений текст політики обробки персональних даних.'
-          : 'This page is a draft. Add legally approved personal data processing text before launch.',
-    },
-    cookies: {
-      title: 'Cookies',
-      text:
-        locale === 'ua'
-          ? 'Аналітичні та маркетингові cookies мають вмикатися тільки після належної згоди користувача.'
-          : 'Analytics and marketing cookies should be enabled only after proper user consent.',
-    },
-    terms: {
-      title: locale === 'ua' ? 'Умови користування' : 'Terms of use',
-      text:
-        locale === 'ua'
-          ? 'Ця сторінка є заготовкою для умов користування та юридичних реквізитів.'
-          : 'This page is a draft for terms of use and legal details.',
-    },
-  }[type];
+  const pageCopy =
+    type === 'contacts'
+      ? {
+          title: locale === 'ua' ? 'Контакти' : 'Contacts',
+          text: `${site.phone} · ${site.telegram} · ${site.email}`,
+        }
+      : { title: pages[type].title[locale], text: pages[type].text[locale] };
   return (
     <>
       <Header locale={locale} setLocale={setLocale} />
@@ -1608,7 +1516,7 @@ export function StaticPage({
         <section className="page-hero">
           <p className="eyebrow">OBRII</p>
           <h1>{pageCopy.title}</h1>
-          <p>{pageCopy.text}</p>
+          <p style={{ whiteSpace: 'pre-line' }}>{pageCopy.text}</p>
           {type === 'about' && (
             <div className="owner-grid page-owner-grid">
               {owners.map((owner) => (
@@ -1657,7 +1565,7 @@ export function OfferDetailPage({ slug }: { slug: string }) {
       <section className="detail-hero">
         <img src={offer.image} alt={offer.title.ua} />
         <div>
-          <p className="eyebrow">Демонстраційна пропозиція · {offer.id}</p>
+          <p className="eyebrow">{offer.id}</p>
           <h1>{offer.title.ua}</h1>
           <p>{offer.excerpt.ua}</p>
           <dl>
@@ -1680,10 +1588,10 @@ export function OfferDetailPage({ slug }: { slug: string }) {
               <dd>{offer.format.ua}</dd>
             </div>
           </dl>
-          <p className="demo-note">
-            Це не підтверджена наявність і не пакетний тур. Менеджер OBRII збере
-            схожий сценарій під ваші дати, склад подорожі та бюджет.
-          </p>
+          {offer.description.ua && (
+            <p style={{ whiteSpace: 'pre-line' }}>{offer.description.ua}</p>
+          )}
+          <p className="demo-note">{detailNote.ua}</p>
           <Link
             href={`/plan-your-trip?offer=${offer.slug}`}
             className="obrii-button cta-link"

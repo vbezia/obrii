@@ -1,8 +1,8 @@
 import type { MetadataRoute } from 'next';
-import { offers } from '@/lib/content';
+import { offers, seo } from '@/lib/content';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://obrii.travel';
+  const base = seo.url.replace(/\/$/, '');
   return [
     '',
     '/offers',
