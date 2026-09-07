@@ -326,7 +326,7 @@ h3 {
 
 .hero-logo {
   position: absolute;
-  left: clamp(7rem, 27vw, 26rem);
+  left: clamp(3rem, 9vw, 8rem);
   right: auto;
   bottom: 24vh;
   z-index: 6;
