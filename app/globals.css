@@ -331,6 +331,13 @@ h3 {
   z-index: 6;
   width: min(30rem, 58vw);
   pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.hero-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .section {
@@ -458,8 +465,13 @@ dd {
 .principle-grid,
 .timeline {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.format-grid,
+.principle-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .format-card,

@@ -25,7 +25,6 @@ import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import {
-  conciergeItems,
   copy,
   getOffer,
   heroPanels,
@@ -207,9 +206,12 @@ function Hero({ locale }: { locale: Locale }) {
             >
               {t.primaryCta}
             </Link>
-            <a href="#concierge" className="obrii-outline cta-link">
+            <Link
+              href={withLocale('/concierge', locale)}
+              className="obrii-outline cta-link"
+            >
               {t.secondaryCta}
-            </a>
+            </Link>
           </div>
         </div>
         <svg className="route-line" viewBox="0 0 1000 420" aria-hidden="true">
@@ -237,10 +239,10 @@ function Hero({ locale }: { locale: Locale }) {
           className="hero-logo"
           style={{
             opacity: logoOpacity,
-            transform: `translateY(${(1 - logoOpacity) * 20}px)`,
+            transform: `translate3d(${(1 - logoOpacity) * -75}vw, 0, 0)`,
           }}
         >
-          <img src="/assets/brand/logo.png" alt="OBRII" />
+          <img src="/assets/brand/logo-transparent.png" alt="OBRII" />
         </div>
       </div>
     </section>
@@ -323,10 +325,6 @@ export function HomePage() {
             {t.collectionLink}
           </Link>
         </section>
-        <section className="section manifesto">
-          <h2>{t.manifestTitle}</h2>
-          <p>{t.manifest}</p>
-        </section>
         <section className="section split-section">
           <div className="section-heading">
             <p className="eyebrow">Experience formats</p>
@@ -355,22 +353,6 @@ export function HomePage() {
               </article>
             ))}
           </div>
-        </section>
-        <section className="section concierge" id="concierge">
-          <div>
-            <p className="eyebrow">Always arranged</p>
-            <h2>{t.conciergeTitle}</h2>
-            <p>
-              {locale === 'ua'
-                ? 'Сервіс працює як постійний супровід, а не як список додаткових опцій.'
-                : 'The service works as ongoing support, not as a list of add-ons.'}
-            </p>
-          </div>
-          <ul>
-            {conciergeItems[locale].map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
         </section>
         <section className="section principles">
           <div className="section-heading">
@@ -993,7 +975,7 @@ export function StaticPage({
       text: locale === 'ua' ? 'Персональний travel-дизайнер збирає маршрут навколо ваших очікувань, ритму, складу подорожі та бюджету.' : 'A personal travel designer builds the route around your expectations, rhythm, travelers and budget.',
     },
     concierge: {
-      title: 'Concierge',
+      title: locale === 'ua' ? 'Консьєрж' : 'Concierge',
       text: locale === 'ua' ? 'OBRII координує складові поїздки: авіацію, трансфери, вілли, яхти, ресторани, події, гідів і зміни маршруту.' : 'OBRII coordinates aviation, transfers, villas, yachts, restaurants, events, guides and route changes.',
     },
     about: {
