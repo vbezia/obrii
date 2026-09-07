@@ -6,15 +6,21 @@ export function generateStaticParams() {
   return offers.map((offer) => ({ slug: offer.slug }));
 }
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-  const offer = getOffer(params.slug);
+type OfferPageProps = {
+  params: Promise<{ slug: string }>;
+};
+
+export async function generateMetadata({ params }: OfferPageProps) {
+  const { slug } = await params;
+  const offer = getOffer(slug);
   return {
     title: offer ? offer.title.ua : 'Подорож',
     description: offer?.excerpt.ua,
   };
 }
 
-export default function Page({ params }: { params: { slug: string } }) {
-  if (!getOffer(params.slug)) notFound();
-  return <OfferDetailPage slug={params.slug} />;
+export default async function Page({ params }: OfferPageProps) {
+  const { slug } = await params;
+  if (!getOffer(slug)) notFound();
+  return <OfferDetailPage slug={slug} />;
 }
