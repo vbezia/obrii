@@ -326,10 +326,11 @@ h3 {
 
 .hero-logo {
   position: absolute;
-  right: clamp(1rem, 6vw, 7rem);
-  bottom: 12vh;
+  left: clamp(7rem, 27vw, 26rem);
+  right: auto;
+  bottom: 24vh;
   z-index: 6;
-  width: min(30rem, 58vw);
+  width: min(26rem, 38vw);
   pointer-events: none;
   will-change: transform, opacity;
 }
@@ -867,6 +868,7 @@ dd {
   }
 
   .hero-logo {
+    left: auto;
     right: 1rem;
     bottom: 8vh;
     width: min(20rem, 72vw);
