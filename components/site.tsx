@@ -2,7 +2,7 @@
 
 /* oxlint-disable react/react-compiler, nextjs/no-img-element */
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -13,6 +13,7 @@ import {
   MapPin,
   Menu,
   Send,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -39,20 +40,53 @@ import {
 
 const formatCards = {
   ua: [
-    ['Private escapes', 'Тиша, приватні простори, готелі й резиденції з правильним ритмом.'],
-    ['Сімейні подорожі', 'Маршрути, де дітям комфортно, а дорослим не потрібно координувати дрібниці.'],
-    ['Яхти та вілли', 'Команда, сервіс, маршрути і берегові зупинки під ваш темп.'],
-    ['Wellness і retreat', 'Відновлення без показної розкоші, з фокусом на тишу та якість.'],
+    [
+      'Private escapes',
+      'Тиша, приватні простори, готелі й резиденції з правильним ритмом.',
+    ],
+    [
+      'Сімейні подорожі',
+      'Маршрути, де дітям комфортно, а дорослим не потрібно координувати дрібниці.',
+    ],
+    [
+      'Яхти та вілли',
+      'Команда, сервіс, маршрути і берегові зупинки під ваш темп.',
+    ],
+    [
+      'Wellness і retreat',
+      'Відновлення без показної розкоші, з фокусом на тишу та якість.',
+    ],
     ['Гастрономія', 'Резервації, локальні експерти і маршрути навколо смаку.'],
-    ['Події', 'Hospitality, квитки, проживання і приватна програма навколо події.'],
+    [
+      'Події',
+      'Hospitality, квитки, проживання і приватна програма навколо події.',
+    ],
   ],
   en: [
-    ['Private escapes', 'Quiet places, private spaces and stays with the right rhythm.'],
-    ['Family journeys', 'Routes where children are comfortable and adults do not coordinate details.'],
-    ['Yachts and villas', 'Crew, service, routes and shore stops around your pace.'],
-    ['Wellness retreats', 'Recovery without loud luxury, focused on privacy and quality.'],
-    ['Gastronomy', 'Reservations, local experts and routes built around taste.'],
-    ['Events', 'Hospitality, tickets, stays and a private program around the event.'],
+    [
+      'Private escapes',
+      'Quiet places, private spaces and stays with the right rhythm.',
+    ],
+    [
+      'Family journeys',
+      'Routes where children are comfortable and adults do not coordinate details.',
+    ],
+    [
+      'Yachts and villas',
+      'Crew, service, routes and shore stops around your pace.',
+    ],
+    [
+      'Wellness retreats',
+      'Recovery without loud luxury, focused on privacy and quality.',
+    ],
+    [
+      'Gastronomy',
+      'Reservations, local experts and routes built around taste.',
+    ],
+    [
+      'Events',
+      'Hospitality, tickets, stays and a private program around the event.',
+    ],
   ],
 };
 
@@ -68,16 +102,30 @@ export function Header({
   locale: Locale;
   setLocale?: (locale: Locale) => void;
 }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const t = copy[locale];
-  const navTargets = ['/offers', '/concierge', '/offers', '/about', '/contacts'];
+  const navTargets = [
+    '/offers',
+    '/concierge',
+    '/offers',
+    '/about',
+    '/contacts',
+  ];
   return (
     <header className="site-header">
-      <Link href={withLocale('/', locale)} className="brand" aria-label="OBRII home">
-        <img src="/assets/brand/logo.png" alt="OBRII" />
+      <Link
+        href={withLocale('/', locale)}
+        className="brand"
+        aria-label="OBRII home"
+      >
+        <img src="/assets/brand/logo-transparent.png" alt="OBRII" />
       </Link>
       <nav className="desktop-nav" aria-label="Main navigation">
         {t.nav.map((item, index) => (
-          <Link key={`${item}-${index}`} href={withLocale(navTargets[index], locale)}>
+          <Link
+            key={`${item}-${index}`}
+            href={withLocale(navTargets[index], locale)}
+          >
             {item}
           </Link>
         ))}
@@ -86,7 +134,10 @@ export function Header({
         <button
           className="lang-toggle"
           type="button"
-          onClick={() => setLocale?.(locale === 'ua' ? 'en' : 'ua')}
+          onClick={() => {
+            setLocale?.(locale === 'ua' ? 'en' : 'ua');
+            setMobileOpen(false);
+          }}
           aria-label="Switch language"
         >
           <Languages aria-hidden="true" />
@@ -98,10 +149,41 @@ export function Header({
         >
           {t.primaryCta}
         </Link>
-        <button className="mobile-menu" type="button" aria-label="Menu">
-          <Menu aria-hidden="true" />
+        <button
+          className="mobile-menu"
+          type="button"
+          aria-label={mobileOpen ? 'Close menu' : 'Menu'}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
+          onClick={() => setMobileOpen((open) => !open)}
+        >
+          {mobileOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
       </div>
+      <nav
+        id="mobile-navigation"
+        className={cn('mobile-nav', mobileOpen && 'open')}
+        aria-label="Mobile navigation"
+      >
+        {t.nav.map((item, index) => (
+          <Link
+            key={`${item}-${index}`}
+            href={withLocale(navTargets[index], locale)}
+            onClick={() => setMobileOpen(false)}
+          >
+            {item}
+            <ArrowRight aria-hidden="true" />
+          </Link>
+        ))}
+        <Link
+          href={withLocale('/plan-your-trip', locale)}
+          className="obrii-button cta-link mobile-nav-cta"
+          onClick={() => setMobileOpen(false)}
+        >
+          {t.primaryCta}
+          <ArrowRight aria-hidden="true" />
+        </Link>
+      </nav>
     </header>
   );
 }
@@ -291,6 +373,127 @@ function OfferCard({
   );
 }
 
+function OwnerPortrait({
+  owner,
+  locale,
+}: {
+  owner: (typeof owners)[number];
+  locale: Locale;
+}) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const animationFrameRef = useRef<number | null>(null);
+  const pointerRef = useRef({ x: 0, y: 0, radius: 110 });
+  const revealReadyRef = useRef(false);
+  const [revealReady, setRevealReady] = useState(false);
+  const [showHoliday, setShowHoliday] = useState(false);
+
+  useEffect(
+    () => () => {
+      if (animationFrameRef.current !== null) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    },
+    [],
+  );
+
+  const updatePointer = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (
+      showHoliday ||
+      !revealReadyRef.current ||
+      !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    ) {
+      return;
+    }
+
+    const frame = frameRef.current;
+    if (!frame) return;
+    const rect = frame.getBoundingClientRect();
+    pointerRef.current = {
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      radius: Math.min(120, Math.max(90, rect.width * 0.28)),
+    };
+
+    if (animationFrameRef.current !== null) return;
+    animationFrameRef.current = requestAnimationFrame(() => {
+      const nextFrame = frameRef.current;
+      if (nextFrame) {
+        nextFrame.style.setProperty('--reveal-x', `${pointerRef.current.x}px`);
+        nextFrame.style.setProperty('--reveal-y', `${pointerRef.current.y}px`);
+        nextFrame.style.setProperty(
+          '--reveal-radius',
+          `${pointerRef.current.radius}px`,
+        );
+      }
+      animationFrameRef.current = null;
+    });
+  };
+
+  const showPointerReveal = (event: React.PointerEvent<HTMLDivElement>) => {
+    updatePointer(event);
+    if (revealReadyRef.current && !showHoliday) {
+      frameRef.current?.style.setProperty('--reveal-opacity', '1');
+    }
+  };
+
+  const hidePointerReveal = () => {
+    frameRef.current?.style.setProperty('--reveal-opacity', '0');
+  };
+
+  return (
+    <div
+      ref={frameRef}
+      className={cn(
+        'owner-photo-frame',
+        revealReady && 'is-ready',
+        showHoliday && 'is-toggled',
+      )}
+      onPointerEnter={showPointerReveal}
+      onPointerMove={updatePointer}
+      onPointerLeave={hidePointerReveal}
+    >
+      <img
+        className="owner-photo owner-photo-base"
+        src={owner.image}
+        alt={owner.name[locale]}
+        loading="lazy"
+        style={{ objectPosition: owner.imagePosition }}
+      />
+      <img
+        className="owner-photo owner-photo-holiday"
+        src={owner.holidayImage}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        draggable="false"
+        style={{ objectPosition: owner.holidayImagePosition }}
+        onLoad={() => {
+          revealReadyRef.current = true;
+          setRevealReady(true);
+        }}
+        onError={() => {
+          revealReadyRef.current = false;
+          setRevealReady(false);
+          setShowHoliday(false);
+        }}
+      />
+      {revealReady && (
+        <button
+          type="button"
+          className="owner-photo-toggle"
+          aria-pressed={showHoliday}
+          onClick={() => {
+            hidePointerReveal();
+            setShowHoliday((visible) => !visible);
+          }}
+        >
+          {showHoliday ? 'Робоче фото' : 'На відпочинку'}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function HomePage() {
   const [locale, setLocale] = useState<Locale>('ua');
   const t = copy[locale];
@@ -373,10 +576,10 @@ export function HomePage() {
           <div className="owner-grid">
             {owners.map((owner) => (
               <article className="owner-card" key={owner.name.ua}>
-                <img src={owner.image} alt={owner.name[locale]} loading="lazy" />
+                <OwnerPortrait owner={owner} locale={locale} />
                 <div>
                   <h3>{owner.name[locale]}</h3>
-                  <p>{owner.role}</p>
+                  <p>{owner.role[locale]}</p>
                   <span>{owner.note[locale]}</span>
                 </div>
               </article>
@@ -472,7 +675,12 @@ const plannerLabels = {
     title: 'Plan a private journey',
     intro:
       'This is a request for personal curation by a manager. We do not ask for passport or payment details.',
-    steps: ['Preferences', 'Dates and travelers', 'Budget and details', 'Contacts'],
+    steps: [
+      'Preferences',
+      'Dates and travelers',
+      'Budget and details',
+      'Contacts',
+    ],
     next: 'Next',
     back: 'Back',
     submit: 'Send request',
@@ -494,7 +702,9 @@ export function TripPlannerPage() {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<PlannerState>(initialPlanner);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [status, setStatus] = useState<
+    'idle' | 'submitting' | 'success' | 'error'
+  >('idle');
   const [source, setSource] = useState<Record<string, string>>({});
 
   useEffect(() => {
@@ -507,7 +717,10 @@ export function TripPlannerPage() {
               title: string;
               description: string;
               inputSchema: object;
-              annotations: { readOnlyHint: boolean; untrustedContentHint: boolean };
+              annotations: {
+                readOnlyHint: boolean;
+                untrustedContentHint: boolean;
+              };
               execute: (input: unknown) => { ok: boolean; step: number };
             },
             options?: { signal: AbortSignal },
@@ -539,7 +752,9 @@ export function TripPlannerPage() {
               currency: { enum: ['EUR', 'USD', 'UAH'] },
               wishes: { type: 'string' },
               name: { type: 'string' },
-              contactMethod: { enum: ['phone', 'telegram', 'whatsapp', 'email'] },
+              contactMethod: {
+                enum: ['phone', 'telegram', 'whatsapp', 'email'],
+              },
             },
             additionalProperties: false,
           },
@@ -553,13 +768,23 @@ export function TripPlannerPage() {
                 ? input.formats.map((item) => String(item)).slice(0, 6)
                 : current.formats,
               month: cleanString(input.month, current.month),
-              adults: typeof input.adults === 'number' ? Math.max(1, input.adults) : current.adults,
-              children: typeof input.children === 'number' ? Math.max(0, input.children) : current.children,
+              adults:
+                typeof input.adults === 'number'
+                  ? Math.max(1, input.adults)
+                  : current.adults,
+              children:
+                typeof input.children === 'number'
+                  ? Math.max(0, input.children)
+                  : current.children,
               budget: cleanString(input.budget, current.budget),
-              currency: isCurrency(input.currency) ? input.currency : current.currency,
+              currency: isCurrency(input.currency)
+                ? input.currency
+                : current.currency,
               wishes: cleanString(input.wishes, current.wishes),
               name: cleanString(input.name, current.name),
-              contactMethod: isContactMethod(input.contactMethod) ? input.contactMethod : current.contactMethod,
+              contactMethod: isContactMethod(input.contactMethod)
+                ? input.contactMethod
+                : current.contactMethod,
             }));
             setStep(3);
             return { ok: true, step: 4 };
@@ -580,7 +805,13 @@ export function TripPlannerPage() {
       page: window.location.href,
       referrer: document.referrer,
     };
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach((key) => {
+    [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_term',
+      'utm_content',
+    ].forEach((key) => {
       const value = params.get(key);
       if (value) sourceData[key] = value;
     });
@@ -596,7 +827,10 @@ export function TripPlannerPage() {
   const labels = plannerLabels[locale];
   const progress = ((step + 1) / labels.steps.length) * 100;
 
-  function update<T extends keyof PlannerState>(key: T, value: PlannerState[T]) {
+  function update<T extends keyof PlannerState>(
+    key: T,
+    value: PlannerState[T],
+  ) {
     setForm((current) => ({ ...current, [key]: value }));
     setErrors((current) => {
       const next = { ...current };
@@ -607,29 +841,65 @@ export function TripPlannerPage() {
 
   function validate(targetStep = step) {
     const nextErrors: Record<string, string> = {};
-    if (targetStep === 0 && !form.undecided && form.destination.trim().length < 2) {
-      nextErrors.destination = locale === 'ua' ? 'Вкажіть напрям або оберіть варіант нижче.' : 'Add a destination or choose the option below.';
+    if (
+      targetStep === 0 &&
+      !form.undecided &&
+      form.destination.trim().length < 2
+    ) {
+      nextErrors.destination =
+        locale === 'ua'
+          ? 'Вкажіть напрям або оберіть варіант нижче.'
+          : 'Add a destination or choose the option below.';
     }
     if (targetStep === 0 && form.formats.length === 0) {
-      nextErrors.formats = locale === 'ua' ? 'Оберіть хоча б один формат.' : 'Choose at least one format.';
+      nextErrors.formats =
+        locale === 'ua'
+          ? 'Оберіть хоча б один формат.'
+          : 'Choose at least one format.';
     }
-    if (targetStep === 1 && !form.flexibleDates && !form.month && (!form.startDate || !form.endDate)) {
-      nextErrors.dates = locale === 'ua' ? 'Вкажіть дати, місяць або гнучкість.' : 'Add dates, a month or flexible dates.';
+    if (
+      targetStep === 1 &&
+      !form.flexibleDates &&
+      !form.month &&
+      (!form.startDate || !form.endDate)
+    ) {
+      nextErrors.dates =
+        locale === 'ua'
+          ? 'Вкажіть дати, місяць або гнучкість.'
+          : 'Add dates, a month or flexible dates.';
     }
-    if (targetStep === 1 && form.children > 0 && form.childAges.some((age) => !age.trim())) {
-      nextErrors.childAges = locale === 'ua' ? 'Додайте вік кожної дитини.' : 'Add each child age.';
+    if (
+      targetStep === 1 &&
+      form.children > 0 &&
+      form.childAges.some((age) => !age.trim())
+    ) {
+      nextErrors.childAges =
+        locale === 'ua' ? 'Додайте вік кожної дитини.' : 'Add each child age.';
     }
-    if (targetStep === 2 && !form.needBudgetAdvice && (!form.budget || Number(form.budget) <= 0)) {
-      nextErrors.budget = locale === 'ua' ? 'Вкажіть бюджет або оберіть рекомендацію.' : 'Add a budget or choose budget advice.';
+    if (
+      targetStep === 2 &&
+      !form.needBudgetAdvice &&
+      (!form.budget || Number(form.budget) <= 0)
+    ) {
+      nextErrors.budget =
+        locale === 'ua'
+          ? 'Вкажіть бюджет або оберіть рекомендацію.'
+          : 'Add a budget or choose budget advice.';
     }
     if (targetStep === 3 && form.name.trim().length < 2) {
       nextErrors.name = locale === 'ua' ? 'Вкажіть ім’я.' : 'Add your name.';
     }
     if (targetStep === 3 && form.contact.trim().length < 3) {
-      nextErrors.contact = locale === 'ua' ? 'Вкажіть контакт, за яким менеджер зможе вас знайти.' : 'Add a contact a manager can use to find you.';
+      nextErrors.contact =
+        locale === 'ua'
+          ? 'Вкажіть контакт, за яким менеджер зможе вас знайти.'
+          : 'Add a contact a manager can use to find you.';
     }
     if (targetStep === 3 && !form.consent) {
-      nextErrors.consent = locale === 'ua' ? 'Потрібна згода на обробку даних.' : 'Consent is required.';
+      nextErrors.consent =
+        locale === 'ua'
+          ? 'Потрібна згода на обробку даних.'
+          : 'Consent is required.';
     }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
@@ -668,7 +938,9 @@ export function TripPlannerPage() {
       ? locale === 'ua'
         ? 'Дати гнучкі'
         : 'Flexible dates'
-      : form.month || [form.startDate, form.endDate].filter(Boolean).join(' - ') || '-';
+      : form.month ||
+        [form.startDate, form.endDate].filter(Boolean).join(' - ') ||
+        '-';
     const budget = form.needBudgetAdvice
       ? locale === 'ua'
         ? 'Потрібна рекомендація'
@@ -696,7 +968,9 @@ export function TripPlannerPage() {
             <p>{labels.intro}</p>
             {source.offerTitle && (
               <div className="source-offer">
-                <span>{locale === 'ua' ? 'Обрана пропозиція' : 'Selected offer'}</span>
+                <span>
+                  {locale === 'ua' ? 'Обрана пропозиція' : 'Selected offer'}
+                </span>
                 <strong>{source.offerTitle}</strong>
               </div>
             )}
@@ -705,23 +979,61 @@ export function TripPlannerPage() {
             <Progress value={progress} className="planner-progress">
               <ProgressLabel>{labels.steps[step]}</ProgressLabel>
             </Progress>
-            <div className="step-tabs" aria-label={locale === 'ua' ? 'Кроки форми' : 'Form steps'}>
+            <div
+              className="step-tabs"
+              aria-label={locale === 'ua' ? 'Кроки форми' : 'Form steps'}
+            >
               {labels.steps.map((label, index) => (
-                <button key={label} className={cn(index === step && 'active')} type="button" onClick={() => setStep(index)}>
+                <button
+                  key={label}
+                  className={cn(index === step && 'active')}
+                  type="button"
+                  aria-current={index === step ? 'step' : undefined}
+                  onClick={() => setStep(index)}
+                >
                   {index + 1}. {label}
                 </button>
               ))}
             </div>
-            <input className="honeypot" value={form.website} onChange={(event) => update('website', event.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" />
+            <input
+              className="honeypot"
+              value={form.website}
+              onChange={(event) => update('website', event.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+            />
 
             {step === 0 && (
               <div className="form-step">
-                <Field label={locale === 'ua' ? 'Напрям' : 'Destination'} error={errors.destination}>
-                  <Input value={form.destination} onChange={(event) => update('destination', event.target.value)} placeholder={locale === 'ua' ? 'Країна, регіон або ваш опис' : 'Country, region or free text'} aria-invalid={Boolean(errors.destination)} />
+                <Field
+                  label={locale === 'ua' ? 'Напрям' : 'Destination'}
+                  error={errors.destination}
+                >
+                  <Input
+                    value={form.destination}
+                    onChange={(event) =>
+                      update('destination', event.target.value)
+                    }
+                    placeholder={
+                      locale === 'ua'
+                        ? 'Країна, регіон або ваш опис'
+                        : 'Country, region or free text'
+                    }
+                    aria-invalid={Boolean(errors.destination)}
+                  />
                 </Field>
-                <CheckRow checked={form.undecided} onChange={(checked) => update('undecided', checked)} label={locale === 'ua' ? 'Ще не визначилися' : 'Not decided yet'} />
+                <CheckRow
+                  checked={form.undecided}
+                  onChange={(checked) => update('undecided', checked)}
+                  label={
+                    locale === 'ua' ? 'Ще не визначилися' : 'Not decided yet'
+                  }
+                />
                 <div>
-                  <p className="field-label">{locale === 'ua' ? 'Формат подорожі' : 'Travel format'}</p>
+                  <p className="field-label">
+                    {locale === 'ua' ? 'Формат подорожі' : 'Travel format'}
+                  </p>
                   <div className="choice-grid">
                     {tripFormats.map((format) => {
                       const label = format[locale];
@@ -731,14 +1043,24 @@ export function TripPlannerPage() {
                           type="button"
                           className={cn('choice-pill', checked && 'selected')}
                           key={label}
-                          onClick={() => update('formats', checked ? form.formats.filter((item) => item !== label) : [...form.formats, label])}
+                          aria-pressed={checked}
+                          onClick={() =>
+                            update(
+                              'formats',
+                              checked
+                                ? form.formats.filter((item) => item !== label)
+                                : [...form.formats, label],
+                            )
+                          }
                         >
                           {label}
                         </button>
                       );
                     })}
                   </div>
-                  {errors.formats && <p className="field-error">{errors.formats}</p>}
+                  {errors.formats && (
+                    <p className="field-error">{errors.formats}</p>
+                  )}
                 </div>
               </div>
             )}
@@ -747,28 +1069,78 @@ export function TripPlannerPage() {
               <div className="form-step">
                 <div className="date-grid">
                   <Field label={locale === 'ua' ? 'Початок' : 'Start'}>
-                    <Input type="date" value={form.startDate} onChange={(event) => update('startDate', event.target.value)} />
+                    <Input
+                      type="date"
+                      value={form.startDate}
+                      onChange={(event) =>
+                        update('startDate', event.target.value)
+                      }
+                    />
                   </Field>
                   <Field label={locale === 'ua' ? 'Завершення' : 'End'}>
-                    <Input type="date" value={form.endDate} onChange={(event) => update('endDate', event.target.value)} />
+                    <Input
+                      type="date"
+                      value={form.endDate}
+                      onChange={(event) =>
+                        update('endDate', event.target.value)
+                      }
+                    />
                   </Field>
                 </div>
-                <Field label={locale === 'ua' ? 'Або орієнтовний місяць' : 'Or approximate month'} error={errors.dates}>
-                  <Input value={form.month} onChange={(event) => update('month', event.target.value)} placeholder={locale === 'ua' ? 'Наприклад, лютий 2027' : 'For example, February 2027'} />
+                <Field
+                  label={
+                    locale === 'ua'
+                      ? 'Або орієнтовний місяць'
+                      : 'Or approximate month'
+                  }
+                  error={errors.dates}
+                >
+                  <Input
+                    value={form.month}
+                    onChange={(event) => update('month', event.target.value)}
+                    placeholder={
+                      locale === 'ua'
+                        ? 'Наприклад, лютий 2027'
+                        : 'For example, February 2027'
+                    }
+                  />
                 </Field>
-                <CheckRow checked={form.flexibleDates} onChange={(checked) => update('flexibleDates', checked)} label={locale === 'ua' ? 'Дати гнучкі' : 'Flexible dates'} />
+                <CheckRow
+                  checked={form.flexibleDates}
+                  onChange={(checked) => update('flexibleDates', checked)}
+                  label={locale === 'ua' ? 'Дати гнучкі' : 'Flexible dates'}
+                />
                 <div className="date-grid">
                   <Field label={locale === 'ua' ? 'Дорослі' : 'Adults'}>
-                    <Input type="number" min={1} value={form.adults} onChange={(event) => update('adults', Math.max(1, Number(event.target.value)))} />
+                    <Input
+                      type="number"
+                      inputMode="numeric"
+                      min={1}
+                      value={form.adults}
+                      onChange={(event) =>
+                        update(
+                          'adults',
+                          Math.max(1, Number(event.target.value)),
+                        )
+                      }
+                    />
                   </Field>
                   <Field label={locale === 'ua' ? 'Діти' : 'Children'}>
                     <Input
                       type="number"
+                      inputMode="numeric"
                       min={0}
                       value={form.children}
                       onChange={(event) => {
                         const count = Math.max(0, Number(event.target.value));
-                        setForm((current) => ({ ...current, children: count, childAges: normalizeChildren(count, current.childAges) }));
+                        setForm((current) => ({
+                          ...current,
+                          children: count,
+                          childAges: normalizeChildren(
+                            count,
+                            current.childAges,
+                          ),
+                        }));
                       }}
                     />
                   </Field>
@@ -776,19 +1148,38 @@ export function TripPlannerPage() {
                 {form.children > 0 && (
                   <div className="child-ages">
                     {form.childAges.map((age, index) => (
-                      <Field key={`age-${index}`} label={`${locale === 'ua' ? 'Вік дитини' : 'Child age'} ${index + 1}`}>
-                        <Input value={age} onChange={(event) => {
-                          const ages = [...form.childAges];
-                          ages[index] = event.target.value;
-                          update('childAges', ages);
-                        }} />
+                      <Field
+                        key={`age-${index}`}
+                        label={`${locale === 'ua' ? 'Вік дитини' : 'Child age'} ${index + 1}`}
+                      >
+                        <Input
+                          value={age}
+                          onChange={(event) => {
+                            const ages = [...form.childAges];
+                            ages[index] = event.target.value;
+                            update('childAges', ages);
+                          }}
+                        />
                       </Field>
                     ))}
-                    {errors.childAges && <p className="field-error">{errors.childAges}</p>}
+                    {errors.childAges && (
+                      <p className="field-error">{errors.childAges}</p>
+                    )}
                   </div>
                 )}
-                <Field label={locale === 'ua' ? 'Місто або країна відправлення' : 'Departure city or country'}>
-                  <Input value={form.departure} onChange={(event) => update('departure', event.target.value)} />
+                <Field
+                  label={
+                    locale === 'ua'
+                      ? 'Місто або країна відправлення'
+                      : 'Departure city or country'
+                  }
+                >
+                  <Input
+                    value={form.departure}
+                    onChange={(event) =>
+                      update('departure', event.target.value)
+                    }
+                  />
                 </Field>
               </div>
             )}
@@ -796,11 +1187,34 @@ export function TripPlannerPage() {
             {step === 2 && (
               <div className="form-step">
                 <div className="budget-grid">
-                  <Field label={locale === 'ua' ? 'Орієнтовний бюджет' : 'Approximate budget'} error={errors.budget}>
-                    <Input type="number" min={0} value={form.budget} onChange={(event) => update('budget', event.target.value)} aria-invalid={Boolean(errors.budget)} />
+                  <Field
+                    label={
+                      locale === 'ua'
+                        ? 'Орієнтовний бюджет'
+                        : 'Approximate budget'
+                    }
+                    error={errors.budget}
+                  >
+                    <Input
+                      type="number"
+                      inputMode="decimal"
+                      min={0}
+                      value={form.budget}
+                      onChange={(event) => update('budget', event.target.value)}
+                      aria-invalid={Boolean(errors.budget)}
+                    />
                   </Field>
                   <Field label={locale === 'ua' ? 'Валюта' : 'Currency'}>
-                    <NativeSelect value={form.currency} onChange={(event) => update('currency', event.target.value as PlannerState['currency'])} className="full-select">
+                    <NativeSelect
+                      value={form.currency}
+                      onChange={(event) =>
+                        update(
+                          'currency',
+                          event.target.value as PlannerState['currency'],
+                        )
+                      }
+                      className="full-select"
+                    >
                       <NativeSelectOption value="EUR">EUR</NativeSelectOption>
                       <NativeSelectOption value="USD">USD</NativeSelectOption>
                       <NativeSelectOption value="UAH">UAH</NativeSelectOption>
@@ -808,57 +1222,223 @@ export function TripPlannerPage() {
                   </Field>
                 </div>
                 <div className="segmented">
-                  <button type="button" className={cn(form.budgetType === 'total' && 'active')} onClick={() => update('budgetType', 'total')}>{locale === 'ua' ? 'На всю подорож' : 'Total trip'}</button>
-                  <button type="button" className={cn(form.budgetType === 'person' && 'active')} onClick={() => update('budgetType', 'person')}>{locale === 'ua' ? 'На одну особу' : 'Per person'}</button>
+                  <button
+                    type="button"
+                    className={cn(form.budgetType === 'total' && 'active')}
+                    onClick={() => update('budgetType', 'total')}
+                  >
+                    {locale === 'ua' ? 'На всю подорож' : 'Total trip'}
+                  </button>
+                  <button
+                    type="button"
+                    className={cn(form.budgetType === 'person' && 'active')}
+                    onClick={() => update('budgetType', 'person')}
+                  >
+                    {locale === 'ua' ? 'На одну особу' : 'Per person'}
+                  </button>
                 </div>
-                <CheckRow checked={form.needBudgetAdvice} onChange={(checked) => update('needBudgetAdvice', checked)} label={locale === 'ua' ? 'Потрібна рекомендація щодо бюджету' : 'I need a budget recommendation'} />
-                <Field label={locale === 'ua' ? 'Побажання до готелю, харчування, перельоту і сервісу' : 'Hotel, dining, flight and service wishes'}>
-                  <Textarea value={form.wishes} onChange={(event) => update('wishes', event.target.value)} rows={6} />
+                <CheckRow
+                  checked={form.needBudgetAdvice}
+                  onChange={(checked) => update('needBudgetAdvice', checked)}
+                  label={
+                    locale === 'ua'
+                      ? 'Потрібна рекомендація щодо бюджету'
+                      : 'I need a budget recommendation'
+                  }
+                />
+                <Field
+                  label={
+                    locale === 'ua'
+                      ? 'Побажання до готелю, харчування, перельоту і сервісу'
+                      : 'Hotel, dining, flight and service wishes'
+                  }
+                >
+                  <Textarea
+                    value={form.wishes}
+                    onChange={(event) => update('wishes', event.target.value)}
+                    rows={6}
+                  />
                 </Field>
               </div>
             )}
 
             {step === 3 && (
               <div className="form-step">
-                <Field label={locale === 'ua' ? 'Ім’я' : 'Name'} error={errors.name}>
-                  <Input value={form.name} onChange={(event) => update('name', event.target.value)} aria-invalid={Boolean(errors.name)} />
+                <Field
+                  label={locale === 'ua' ? 'Ім’я' : 'Name'}
+                  error={errors.name}
+                >
+                  <Input
+                    value={form.name}
+                    onChange={(event) => update('name', event.target.value)}
+                    aria-invalid={Boolean(errors.name)}
+                  />
                 </Field>
-                <Field label={locale === 'ua' ? 'Бажаний спосіб зв’язку' : 'Preferred contact method'}>
-                  <NativeSelect value={form.contactMethod} onChange={(event) => update('contactMethod', event.target.value as PlannerState['contactMethod'])} className="full-select">
-                    <NativeSelectOption value="phone">{locale === 'ua' ? 'Телефон' : 'Phone'}</NativeSelectOption>
-                    <NativeSelectOption value="telegram">Telegram</NativeSelectOption>
-                    <NativeSelectOption value="whatsapp">WhatsApp</NativeSelectOption>
+                <Field
+                  label={
+                    locale === 'ua'
+                      ? 'Бажаний спосіб зв’язку'
+                      : 'Preferred contact method'
+                  }
+                >
+                  <NativeSelect
+                    value={form.contactMethod}
+                    onChange={(event) =>
+                      update(
+                        'contactMethod',
+                        event.target.value as PlannerState['contactMethod'],
+                      )
+                    }
+                    className="full-select"
+                  >
+                    <NativeSelectOption value="phone">
+                      {locale === 'ua' ? 'Телефон' : 'Phone'}
+                    </NativeSelectOption>
+                    <NativeSelectOption value="telegram">
+                      Telegram
+                    </NativeSelectOption>
+                    <NativeSelectOption value="whatsapp">
+                      WhatsApp
+                    </NativeSelectOption>
                     <NativeSelectOption value="email">Email</NativeSelectOption>
                   </NativeSelect>
                 </Field>
-                <Field label={locale === 'ua' ? 'Контакт для обраного способу' : 'Contact for selected method'} error={errors.contact}>
-                  <Input value={form.contact} onChange={(event) => update('contact', event.target.value)} placeholder={form.contactMethod === 'telegram' ? '@username або номер телефону' : ''} aria-invalid={Boolean(errors.contact)} />
+                <Field
+                  label={
+                    locale === 'ua'
+                      ? 'Контакт для обраного способу'
+                      : 'Contact for selected method'
+                  }
+                  error={errors.contact}
+                >
+                  <Input
+                    type={form.contactMethod === 'email' ? 'email' : 'text'}
+                    inputMode={
+                      form.contactMethod === 'email'
+                        ? 'email'
+                        : form.contactMethod === 'phone' ||
+                            form.contactMethod === 'whatsapp'
+                          ? 'tel'
+                          : 'text'
+                    }
+                    value={form.contact}
+                    onChange={(event) => update('contact', event.target.value)}
+                    placeholder={
+                      form.contactMethod === 'telegram'
+                        ? '@username або номер телефону'
+                        : ''
+                    }
+                    aria-invalid={Boolean(errors.contact)}
+                  />
                 </Field>
-                {form.contactMethod === 'telegram' && <p className="field-help">{locale === 'ua' ? 'Менеджеру потрібен username або номер, за яким вас можна знайти в Telegram.' : 'A manager needs a username or phone number that can be found in Telegram.'}</p>}
-                <Field label={locale === 'ua' ? 'Інші контакти' : 'Other contacts'}>
-                  <Input value={form.otherContacts} onChange={(event) => update('otherContacts', event.target.value)} />
+                {form.contactMethod === 'telegram' && (
+                  <p className="field-help">
+                    {locale === 'ua'
+                      ? 'Менеджеру потрібен username або номер, за яким вас можна знайти в Telegram.'
+                      : 'A manager needs a username or phone number that can be found in Telegram.'}
+                  </p>
+                )}
+                <Field
+                  label={locale === 'ua' ? 'Інші контакти' : 'Other contacts'}
+                >
+                  <Input
+                    value={form.otherContacts}
+                    onChange={(event) =>
+                      update('otherContacts', event.target.value)
+                    }
+                  />
                 </Field>
-                <Field label={locale === 'ua' ? 'Зручний час зв’язку' : 'Convenient contact time'}>
-                  <Input value={form.contactTime} onChange={(event) => update('contactTime', event.target.value)} />
+                <Field
+                  label={
+                    locale === 'ua'
+                      ? 'Зручний час зв’язку'
+                      : 'Convenient contact time'
+                  }
+                >
+                  <Input
+                    value={form.contactTime}
+                    onChange={(event) =>
+                      update('contactTime', event.target.value)
+                    }
+                  />
                 </Field>
                 <div className="request-summary">
-                  <h2>{locale === 'ua' ? 'Резюме заявки' : 'Request summary'}</h2>
-                  <p><strong>{locale === 'ua' ? 'Напрям:' : 'Destination:'}</strong> {form.undecided ? (locale === 'ua' ? 'Ще не визначилися' : 'Not decided') : form.destination || '-'}</p>
-                  <p><strong>{locale === 'ua' ? 'Формати:' : 'Formats:'}</strong> {summary.formatText}</p>
-                  <p><strong>{locale === 'ua' ? 'Дати:' : 'Dates:'}</strong> {summary.dates}</p>
-                  <p><strong>{locale === 'ua' ? 'Туристи:' : 'Travelers:'}</strong> {form.adults} + {form.children}</p>
-                  <p><strong>{locale === 'ua' ? 'Бюджет:' : 'Budget:'}</strong> {summary.budget}</p>
-                  {source.offerTitle && <p><strong>{locale === 'ua' ? 'Пропозиція:' : 'Offer:'}</strong> {source.offerTitle}</p>}
+                  <h2>
+                    {locale === 'ua' ? 'Резюме заявки' : 'Request summary'}
+                  </h2>
+                  <p>
+                    <strong>
+                      {locale === 'ua' ? 'Напрям:' : 'Destination:'}
+                    </strong>{' '}
+                    {form.undecided
+                      ? locale === 'ua'
+                        ? 'Ще не визначилися'
+                        : 'Not decided'
+                      : form.destination || '-'}
+                  </p>
+                  <p>
+                    <strong>{locale === 'ua' ? 'Формати:' : 'Formats:'}</strong>{' '}
+                    {summary.formatText}
+                  </p>
+                  <p>
+                    <strong>{locale === 'ua' ? 'Дати:' : 'Dates:'}</strong>{' '}
+                    {summary.dates}
+                  </p>
+                  <p>
+                    <strong>
+                      {locale === 'ua' ? 'Туристи:' : 'Travelers:'}
+                    </strong>{' '}
+                    {form.adults} + {form.children}
+                  </p>
+                  <p>
+                    <strong>{locale === 'ua' ? 'Бюджет:' : 'Budget:'}</strong>{' '}
+                    {summary.budget}
+                  </p>
+                  {source.offerTitle && (
+                    <p>
+                      <strong>
+                        {locale === 'ua' ? 'Пропозиція:' : 'Offer:'}
+                      </strong>{' '}
+                      {source.offerTitle}
+                    </p>
+                  )}
                 </div>
-                <CheckRow checked={form.consent} onChange={(checked) => update('consent', checked)} label={<>{locale === 'ua' ? 'Погоджуюся на обробку персональних даних згідно з ' : 'I agree to personal data processing under the '}<Link href="/privacy">{locale === 'ua' ? 'політикою конфіденційності' : 'privacy policy'}</Link></>} />
-                {errors.consent && <p className="field-error">{errors.consent}</p>}
+                <CheckRow
+                  checked={form.consent}
+                  onChange={(checked) => update('consent', checked)}
+                  label={
+                    <>
+                      {locale === 'ua'
+                        ? 'Погоджуюся на обробку персональних даних згідно з '
+                        : 'I agree to personal data processing under the '}
+                      <Link href="/privacy">
+                        {locale === 'ua'
+                          ? 'політикою конфіденційності'
+                          : 'privacy policy'}
+                      </Link>
+                    </>
+                  }
+                />
+                {errors.consent && (
+                  <p className="field-error">{errors.consent}</p>
+                )}
               </div>
             )}
 
-            {status === 'success' && <div className="status success">{labels.success}</div>}
-            {status === 'error' && <div className="status error">{labels.error}</div>}
+            {status === 'success' && (
+              <div className="status success">{labels.success}</div>
+            )}
+            {status === 'error' && (
+              <div className="status error">{labels.error}</div>
+            )}
             <div className="planner-actions">
-              <Button type="button" variant="outline" className="obrii-outline" disabled={step === 0 || status === 'submitting'} onClick={() => setStep((value) => Math.max(0, value - 1))}>
+              <Button
+                type="button"
+                variant="outline"
+                className="obrii-outline"
+                disabled={step === 0 || status === 'submitting'}
+                onClick={() => setStep((value) => Math.max(0, value - 1))}
+              >
                 <ChevronLeft aria-hidden="true" /> {labels.back}
               </Button>
               {step < 3 ? (
@@ -866,8 +1446,17 @@ export function TripPlannerPage() {
                   {labels.next} <ChevronRight aria-hidden="true" />
                 </Button>
               ) : (
-                <Button type="button" className="obrii-button" disabled={status === 'submitting' || status === 'success'} onClick={submit}>
-                  {status === 'submitting' ? labels.sending : status === 'error' ? labels.retry : labels.submit}
+                <Button
+                  type="button"
+                  className="obrii-button"
+                  disabled={status === 'submitting' || status === 'success'}
+                  onClick={submit}
+                >
+                  {status === 'submitting'
+                    ? labels.sending
+                    : status === 'error'
+                      ? labels.retry
+                      : labels.submit}
                   <Send aria-hidden="true" />
                 </Button>
               )}
@@ -888,8 +1477,15 @@ function isCurrency(value: unknown): value is PlannerState['currency'] {
   return value === 'EUR' || value === 'USD' || value === 'UAH';
 }
 
-function isContactMethod(value: unknown): value is PlannerState['contactMethod'] {
-  return value === 'phone' || value === 'telegram' || value === 'whatsapp' || value === 'email';
+function isContactMethod(
+  value: unknown,
+): value is PlannerState['contactMethod'] {
+  return (
+    value === 'phone' ||
+    value === 'telegram' ||
+    value === 'whatsapp' ||
+    value === 'email'
+  );
 }
 
 function Field({
@@ -921,7 +1517,10 @@ function CheckRow({
 }) {
   return (
     <label className="check-row">
-      <Checkbox checked={checked} onCheckedChange={(value) => onChange(Boolean(value))} />
+      <Checkbox
+        checked={checked}
+        onCheckedChange={(value) => onChange(Boolean(value))}
+      />
       <span>{label}</span>
     </label>
   );
@@ -931,7 +1530,8 @@ export function CatalogPage() {
   const [locale, setLocale] = useState<Locale>('ua');
   const [visible, setVisible] = useState(6);
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get('lang') === 'en') setLocale('en');
+    if (new URLSearchParams(window.location.search).get('lang') === 'en')
+      setLocale('en');
   }, []);
   return (
     <>
@@ -939,8 +1539,14 @@ export function CatalogPage() {
       <main className="catalog-page">
         <section className="page-hero">
           <p className="eyebrow">Private collection</p>
-          <h1>{locale === 'ua' ? 'Колекції подорожей' : 'Travel collections'}</h1>
-          <p>{locale === 'ua' ? 'Демонстраційні історії для індивідуального підбору. Вони показують формат досвіду, а не гарантовану наявність.' : 'Demo stories for individual curation. They show the style of experience, not guaranteed availability.'}</p>
+          <h1>
+            {locale === 'ua' ? 'Колекції подорожей' : 'Travel collections'}
+          </h1>
+          <p>
+            {locale === 'ua'
+              ? 'Демонстраційні історії для індивідуального підбору. Вони показують формат досвіду, а не гарантовану наявність.'
+              : 'Demo stories for individual curation. They show the style of experience, not guaranteed availability.'}
+          </p>
         </section>
         <section className="section">
           <div className="offer-grid">
@@ -949,7 +1555,10 @@ export function CatalogPage() {
             ))}
           </div>
           {visible < offers.length && (
-            <Button className="obrii-button centered-button" onClick={() => setVisible((value) => value + 3)}>
+            <Button
+              className="obrii-button centered-button"
+              onClick={() => setVisible((value) => value + 3)}
+            >
               {locale === 'ua' ? 'Показати ще' : 'Load more'}
             </Button>
           )}
@@ -963,24 +1572,41 @@ export function CatalogPage() {
 export function StaticPage({
   type,
 }: {
-  type: 'individual' | 'concierge' | 'about' | 'contacts' | 'privacy' | 'cookies' | 'terms';
+  type:
+    | 'individual'
+    | 'concierge'
+    | 'about'
+    | 'contacts'
+    | 'privacy'
+    | 'cookies'
+    | 'terms';
 }) {
   const [locale, setLocale] = useState<Locale>('ua');
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get('lang') === 'en') setLocale('en');
+    if (new URLSearchParams(window.location.search).get('lang') === 'en')
+      setLocale('en');
   }, []);
   const pageCopy = {
     individual: {
       title: locale === 'ua' ? 'Індивідуальні подорожі' : 'Individual travel',
-      text: locale === 'ua' ? 'Персональний travel-дизайнер збирає маршрут навколо ваших очікувань, ритму, складу подорожі та бюджету.' : 'A personal travel designer builds the route around your expectations, rhythm, travelers and budget.',
+      text:
+        locale === 'ua'
+          ? 'Персональний travel-дизайнер збирає маршрут навколо ваших очікувань, ритму, складу подорожі та бюджету.'
+          : 'A personal travel designer builds the route around your expectations, rhythm, travelers and budget.',
     },
     concierge: {
       title: locale === 'ua' ? 'Консьєрж' : 'Concierge',
-      text: locale === 'ua' ? 'OBRII координує складові поїздки: авіацію, трансфери, вілли, яхти, ресторани, події, гідів і зміни маршруту.' : 'OBRII coordinates aviation, transfers, villas, yachts, restaurants, events, guides and route changes.',
+      text:
+        locale === 'ua'
+          ? 'OBRII координує складові поїздки: авіацію, трансфери, вілли, яхти, ресторани, події, гідів і зміни маршруту.'
+          : 'OBRII coordinates aviation, transfers, villas, yachts, restaurants, events, guides and route changes.',
     },
     about: {
       title: locale === 'ua' ? 'Про агенцію' : 'About OBRII',
-      text: locale === 'ua' ? 'OBRII працює з приватними подорожами, concierge і подієвим туризмом. У центрі процесу людина, а не готовий пакет.' : 'OBRII works with private travel, concierge and event tourism. The process starts with the person, not a package.',
+      text:
+        locale === 'ua'
+          ? 'OBRII працює з приватними подорожами, concierge і подієвим туризмом. У центрі процесу людина, а не готовий пакет.'
+          : 'OBRII works with private travel, concierge and event tourism. The process starts with the person, not a package.',
     },
     contacts: {
       title: locale === 'ua' ? 'Контакти' : 'Contacts',
@@ -988,15 +1614,24 @@ export function StaticPage({
     },
     privacy: {
       title: locale === 'ua' ? 'Політика конфіденційності' : 'Privacy policy',
-      text: locale === 'ua' ? 'Ця сторінка є заготовкою. Перед запуском потрібно додати юридично затверджений текст політики обробки персональних даних.' : 'This page is a draft. Add legally approved personal data processing text before launch.',
+      text:
+        locale === 'ua'
+          ? 'Ця сторінка є заготовкою. Перед запуском потрібно додати юридично затверджений текст політики обробки персональних даних.'
+          : 'This page is a draft. Add legally approved personal data processing text before launch.',
     },
     cookies: {
       title: 'Cookies',
-      text: locale === 'ua' ? 'Аналітичні та маркетингові cookies мають вмикатися тільки після належної згоди користувача.' : 'Analytics and marketing cookies should be enabled only after proper user consent.',
+      text:
+        locale === 'ua'
+          ? 'Аналітичні та маркетингові cookies мають вмикатися тільки після належної згоди користувача.'
+          : 'Analytics and marketing cookies should be enabled only after proper user consent.',
     },
     terms: {
       title: locale === 'ua' ? 'Умови користування' : 'Terms of use',
-      text: locale === 'ua' ? 'Ця сторінка є заготовкою для умов користування та юридичних реквізитів.' : 'This page is a draft for terms of use and legal details.',
+      text:
+        locale === 'ua'
+          ? 'Ця сторінка є заготовкою для умов користування та юридичних реквізитів.'
+          : 'This page is a draft for terms of use and legal details.',
     },
   }[type];
   return (
@@ -1011,10 +1646,10 @@ export function StaticPage({
             <div className="owner-grid page-owner-grid">
               {owners.map((owner) => (
                 <article className="owner-card" key={owner.name.ua}>
-                  <img src={owner.image} alt={owner.name[locale]} />
+                  <OwnerPortrait owner={owner} locale={locale} />
                   <div>
                     <h3>{owner.name[locale]}</h3>
-                    <p>{owner.role}</p>
+                    <p>{owner.role[locale]}</p>
                     <span>{owner.note[locale]}</span>
                   </div>
                 </article>
@@ -1079,8 +1714,8 @@ export function OfferDetailPage({ slug }: { slug: string }) {
             </div>
           </dl>
           <p className="demo-note">
-            Це не підтверджена наявність і не пакетний тур. Менеджер OBRII
-            збере схожий сценарій під ваші дати, склад подорожі та бюджет.
+            Це не підтверджена наявність і не пакетний тур. Менеджер OBRII збере
+            схожий сценарій під ваші дати, склад подорожі та бюджет.
           </p>
           <Link
             href={`/plan-your-trip?offer=${offer.slug}`}

@@ -38,15 +38,21 @@ export const heroPanels = [
 export const owners = [
   {
     name: { ua: 'Безрук Владислав', en: 'Vladyslav Bezruk' },
-    role: 'Co-owner',
+    role: { ua: 'Співвласник', en: 'Co-owner' },
     note: { ua: '10+ років у туристичній сфері', en: '10+ years in travel' },
     image: '/assets/team/vladyslav-bezruk.jpg',
+    holidayImage: '/assets/team/vladyslav-bezruk-holiday.webp',
+    imagePosition: '50% 50%',
+    holidayImagePosition: '50% 50%',
   },
   {
     name: { ua: 'Булаєнко Миколай', en: 'Mykolai Bulaienko' },
-    role: 'Co-owner',
+    role: { ua: 'Співвласник', en: 'Co-owner' },
     note: { ua: '15+ років в IT-сфері', en: '15+ years in IT' },
     image: '/assets/team/mykolai-bulaienko.jpg',
+    holidayImage: '/assets/team/mykolai-bulaienko-holiday.webp',
+    imagePosition: '50% 42%',
+    holidayImagePosition: '50% 44%',
   },
 ];
 
@@ -68,7 +74,10 @@ export const offers = [
     slug: 'private-villa-como',
     featured: true,
     order: 1,
-    title: { ua: 'Тиждень на приватній віллі на Комо', en: 'A Week at a Private Villa on Como' },
+    title: {
+      ua: 'Тиждень на приватній віллі на Комо',
+      en: 'A Week at a Private Villa on Como',
+    },
     destination: { ua: 'Італія, Ломбардія', en: 'Italy, Lombardy' },
     format: { ua: 'Яхти та вілли', en: 'Yachts and villas' },
     season: { ua: 'Травень - жовтень', en: 'May - October' },
@@ -84,7 +93,10 @@ export const offers = [
     slug: 'iceland-winter-private-guide',
     featured: true,
     order: 2,
-    title: { ua: 'Зимова Ісландія з персональним гідом', en: 'Winter Iceland with a Private Guide' },
+    title: {
+      ua: 'Зимова Ісландія з персональним гідом',
+      en: 'Winter Iceland with a Private Guide',
+    },
     destination: { ua: 'Ісландія', en: 'Iceland' },
     format: { ua: 'Сафарі та експедиції', en: 'Expeditions' },
     season: { ua: 'Листопад - березень', en: 'November - March' },
@@ -101,7 +113,10 @@ export const offers = [
     featured: true,
     order: 3,
     title: { ua: 'Гастрономічна Японія', en: 'Gastronomic Japan' },
-    destination: { ua: 'Токіо, Кіото, Канадзава', en: 'Tokyo, Kyoto, Kanazawa' },
+    destination: {
+      ua: 'Токіо, Кіото, Канадзава',
+      en: 'Tokyo, Kyoto, Kanazawa',
+    },
     format: { ua: 'Гастрономічний', en: 'Gastronomy' },
     season: { ua: 'Весна або осінь', en: 'Spring or autumn' },
     duration: { ua: '10-14 днів', en: '10-14 days' },
@@ -116,7 +131,10 @@ export const offers = [
     slug: 'seychelles-private-yacht',
     featured: true,
     order: 4,
-    title: { ua: 'Приватна яхта на Сейшелах', en: 'Private Yacht in the Seychelles' },
+    title: {
+      ua: 'Приватна яхта на Сейшелах',
+      en: 'Private Yacht in the Seychelles',
+    },
     destination: { ua: 'Сейшели', en: 'Seychelles' },
     format: { ua: 'Яхти та вілли', en: 'Yachts and villas' },
     season: { ua: 'Квітень - листопад', en: 'April - November' },
@@ -148,7 +166,10 @@ export const offers = [
     slug: 'vip-sport-weekend',
     featured: true,
     order: 6,
-    title: { ua: 'VIP-вікенд на спортивній події', en: 'VIP Weekend at a Sporting Event' },
+    title: {
+      ua: 'VIP-вікенд на спортивній події',
+      en: 'VIP Weekend at a Sporting Event',
+    },
     destination: { ua: 'Європа', en: 'Europe' },
     format: { ua: 'Подієвий', en: 'Events' },
     season: { ua: 'За календарем подій', en: 'By event calendar' },
@@ -164,7 +185,10 @@ export const offers = [
     slug: 'family-mediterranean-summer',
     featured: false,
     order: 7,
-    title: { ua: 'Сімейне літо на Середземному морі', en: 'Family Summer on the Mediterranean' },
+    title: {
+      ua: 'Сімейне літо на Середземному морі',
+      en: 'Family Summer on the Mediterranean',
+    },
     destination: { ua: 'Середземномор’я', en: 'Mediterranean' },
     format: { ua: 'Сімейний', en: 'Family' },
     season: { ua: 'Червень - вересень', en: 'June - September' },
@@ -180,7 +204,10 @@ export const offers = [
     slug: 'executive-travel-europe',
     featured: false,
     order: 8,
-    title: { ua: 'Executive travel для приватної групи', en: 'Executive Travel for a Private Group' },
+    title: {
+      ua: 'Executive travel для приватної групи',
+      en: 'Executive Travel for a Private Group',
+    },
     destination: { ua: 'Європа', en: 'Europe' },
     format: { ua: 'Business travel', en: 'Business travel' },
     season: { ua: 'За запитом', en: 'On request' },
@@ -197,48 +224,59 @@ export const copy = {
   ua: {
     nav: ['Подорожі', 'Консьєрж', 'Колекції', 'Про нас', 'Журнал'],
     heroTitle: 'Подорожі, створені навколо вас',
-    heroText: 'Від першої ідеї до повернення додому персонально плануємо маршрут і беремо на себе кожну деталь.',
+    heroText:
+      'Від першої ідеї до повернення додому персонально плануємо маршрут і беремо на себе кожну деталь.',
     primaryCta: 'Підібрати подорож',
     secondaryCta: 'Познайомитися з сервісом',
     selectedTrips: 'Актуальні подорожі',
-    demoNotice: 'Демонстраційний контент. Доступність і бюджет уточнюються менеджером.',
+    demoNotice:
+      'Демонстраційний контент. Доступність і бюджет уточнюються менеджером.',
     collectionLink: 'Увесь каталог',
     similar: 'Створити схожу подорож',
     manifestTitle: 'Ми не починаємо з каталогу. Ми починаємо з людини.',
-    manifest: 'OBRII створює індивідуальні подорожі для тих, хто цінує час, приватність і впевненість у деталях. Ви описуєте бажаний досвід, а команда збирає маршрут, логістику, бронювання та супровід у єдину спокійну систему.',
+    manifest:
+      'OBRII створює індивідуальні подорожі для тих, хто цінує час, приватність і впевненість у деталях. Ви описуєте бажаний досвід, а команда збирає маршрут, логістику, бронювання та супровід у єдину спокійну систему.',
     formatsTitle: 'Формати подорожей',
     workTitle: 'Як ми працюємо',
     conciergeTitle: 'Concierge',
     principlesTitle: 'Принципи сервісу',
-    ownersTitle: 'Co-owners',
+    ownersTitle: 'Співвласники',
     finalTitle: 'Розкажіть, якою ви уявляєте наступну подорож',
-    finalText: 'Форма збере ключові побажання, а менеджер OBRII повернеться з уточненнями для персонального підбору.',
+    finalText:
+      'Форма збере ключові побажання, а менеджер OBRII повернеться з уточненнями для персонального підбору.',
   },
   en: {
     nav: ['Travel', 'Concierge', 'Collections', 'About', 'Stories'],
     heroTitle: 'Journeys arranged around you',
-    heroText: 'From the first idea to the return home, we plan the route personally and take care of every detail.',
+    heroText:
+      'From the first idea to the return home, we plan the route personally and take care of every detail.',
     primaryCta: 'Plan your trip',
     secondaryCta: 'Explore service',
     selectedTrips: 'Private collection',
-    demoNotice: 'Demo content. Availability and budget are confirmed by a manager.',
+    demoNotice:
+      'Demo content. Availability and budget are confirmed by a manager.',
     collectionLink: 'Full catalog',
     similar: 'Create a similar trip',
     manifestTitle: 'We do not start with a catalog. We start with the person.',
-    manifest: 'OBRII creates individual journeys for people who value time, privacy and confidence in the details. You describe the desired experience, and the team assembles route, logistics, reservations and support into one calm system.',
+    manifest:
+      'OBRII creates individual journeys for people who value time, privacy and confidence in the details. You describe the desired experience, and the team assembles route, logistics, reservations and support into one calm system.',
     formatsTitle: 'Travel formats',
     workTitle: 'How we work',
     conciergeTitle: 'Concierge',
     principlesTitle: 'Service principles',
     ownersTitle: 'Co-owners',
     finalTitle: 'Tell us what your next journey should feel like',
-    finalText: 'The form captures the essentials, then an OBRII manager follows up to refine a personal proposal.',
+    finalText:
+      'The form captures the essentials, then an OBRII manager follows up to refine a personal proposal.',
   },
 };
 
 export const workSteps = {
   ua: [
-    ['Знайомство', 'Визначаємо очікування, склад подорожі, бюджет і важливі деталі.'],
+    [
+      'Знайомство',
+      'Визначаємо очікування, склад подорожі, бюджет і важливі деталі.',
+    ],
     ['Концепція', 'Пропонуємо один або кілька сценаріїв.'],
     ['Організація', 'Бронюємо і координуємо всі складові.'],
     ['Супровід', 'Залишаємося на зв’язку до повернення додому.'],
@@ -252,13 +290,43 @@ export const workSteps = {
 };
 
 export const conciergeItems = {
-  ua: ['приватна авіація та VIP-сервіси в аеропортах', 'трансфери й оренда автомобілів', 'вілли, яхти та резиденції', 'ресторани й закриті події', 'персональні гіди', 'організація особливих подій', 'підтримка і зміни маршруту'],
-  en: ['private aviation and VIP airport services', 'transfers and car rental', 'villas, yachts and residences', 'restaurants and private events', 'personal guides', 'special event arrangements', 'route changes and on-trip support'],
+  ua: [
+    'приватна авіація та VIP-сервіси в аеропортах',
+    'трансфери й оренда автомобілів',
+    'вілли, яхти та резиденції',
+    'ресторани й закриті події',
+    'персональні гіди',
+    'організація особливих подій',
+    'підтримка і зміни маршруту',
+  ],
+  en: [
+    'private aviation and VIP airport services',
+    'transfers and car rental',
+    'villas, yachts and residences',
+    'restaurants and private events',
+    'personal guides',
+    'special event arrangements',
+    'route changes and on-trip support',
+  ],
 };
 
 export const principles = {
-  ua: ['одна контактна особа на всіх етапах', 'перевірені партнери', 'прозорий бюджет', 'конфіденційність', 'підтримка під час подорожі', 'резервні сценарії у складній логістиці'],
-  en: ['one contact person throughout', 'trusted partners', 'transparent budget', 'confidentiality', 'support during the trip', 'backup scenarios for complex logistics'],
+  ua: [
+    'одна контактна особа на всіх етапах',
+    'перевірені партнери',
+    'прозорий бюджет',
+    'конфіденційність',
+    'підтримка під час подорожі',
+    'резервні сценарії у складній логістиці',
+  ],
+  en: [
+    'one contact person throughout',
+    'trusted partners',
+    'transparent budget',
+    'confidentiality',
+    'support during the trip',
+    'backup scenarios for complex logistics',
+  ],
 };
 
 export function getOffer(slug: string) {
