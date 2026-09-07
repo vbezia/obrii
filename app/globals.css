@@ -295,30 +295,75 @@ img {
 
 .hero-scroll {
   position: relative;
-  height: 220vh;
-  background:
-    radial-gradient(
-      circle at 16% 10%,
-      rgb(255 255 255 / 72%),
-      transparent 30rem
-    ),
-    linear-gradient(180deg, #f8f3eb, #f2e9dc);
+  height: 360vh;
+  background: #1f1d1b;
 }
 
 .hero-stage {
   position: sticky;
-  top: 0;
-  min-height: 100vh;
+  top: 5.75rem;
+  height: calc(100vh - 5.75rem);
+  height: calc(100svh - 5.75rem);
   isolation: isolate;
   overflow: hidden;
-  padding: clamp(6.5rem, 13vh, 9rem) var(--page-gutter) 3rem;
+  background: #1f1d1b;
+}
+
+.hero-scenes,
+.hero-layer,
+.hero-reading-shade,
+.hero-finale-shade {
+  position: absolute;
+}
+
+.hero-scenes,
+.hero-reading-shade,
+.hero-finale-shade {
+  inset: 0;
+}
+
+.hero-scenes {
+  z-index: 1;
+  overflow: hidden;
+}
+
+.hero-layer {
+  margin: 0;
+  overflow: hidden;
+  background: #282421;
+  will-change: inset, clip-path, transform;
+}
+
+.hero-layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--hero-position-desktop, 50% 50%);
+  transform: scale(var(--hero-image-scale, 1));
+  will-change: transform;
+}
+
+.hero-reading-shade {
+  z-index: 5;
+  background: linear-gradient(
+    90deg,
+    rgb(17 15 14 / 64%) 0%,
+    rgb(17 15 14 / 38%) 38%,
+    rgb(17 15 14 / 7%) 68%,
+    transparent 82%
+  );
+  pointer-events: none;
+  will-change: opacity;
 }
 
 .hero-intro {
-  position: relative;
-  z-index: 5;
-  width: min(35rem, 39vw);
-  transition: opacity 90ms linear;
+  position: absolute;
+  top: clamp(8.25rem, 20vh, 13rem);
+  left: var(--page-gutter);
+  z-index: 7;
+  width: min(42rem, 52vw);
+  color: #fffaf2;
+  will-change: opacity, transform;
 }
 
 .eyebrow {
@@ -342,94 +387,111 @@ h3 {
 }
 
 .hero-intro h1 {
-  max-width: 11.5ch;
-  font-size: clamp(3.35rem, 6.1vw, 6.5rem);
-  line-height: 1.01;
+  max-width: 10ch;
+  font-size: clamp(3.7rem, 6vw, 6.6rem);
+  line-height: 1.02;
 }
 
 .hero-intro p:not(.eyebrow) {
-  max-width: 34rem;
-  margin: 1.4rem 0 0;
-  color: var(--copy-muted);
-  font-size: clamp(1rem, 1.35vw, 1.18rem);
-  line-height: 1.7;
+  max-width: 31rem;
+  margin: 1.25rem 0 0;
+  color: rgb(255 250 242 / 88%);
+  font-size: 1.05rem;
+  line-height: 1.65;
 }
 
 .hero-actions {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 2rem;
+  margin-top: 1.75rem;
 }
 
-.hero-panels {
+.hero-intro .eyebrow {
+  color: #fffaf2;
+}
+
+.hero-intro .obrii-button {
+  background: #8f1722;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 18%);
+}
+
+.hero-scroll-hint {
   position: absolute;
-  inset: clamp(7rem, 15vh, 10rem) var(--page-gutter) auto max(34rem, 45vw);
-  display: grid;
-  grid-template-columns: minmax(7rem, 0.82fr) minmax(9rem, 1fr) minmax(
-      7rem,
-      0.82fr
-    );
-  align-items: start;
-  gap: clamp(0.7rem, 2vw, 1.8rem);
+  bottom: 2rem;
+  left: var(--page-gutter);
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgb(255 250 242 / 84%);
   pointer-events: none;
+  will-change: opacity;
 }
 
-.hero-panel {
-  height: clamp(18rem, 34vw, 34rem);
-  margin: 0;
+.hero-scroll-hint span {
+  font-size: 0.75rem;
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+.hero-scroll-hint i {
+  width: 3.5rem;
+  height: 1px;
   overflow: hidden;
-  border: 1px solid rgb(255 250 242 / 72%);
-  border-radius: 0.5rem;
-  box-shadow: 0 28px 70px rgb(39 36 34 / 16%);
+  background: rgb(255 250 242 / 38%);
+}
+
+.hero-scroll-hint i::after {
+  display: block;
+  width: 55%;
+  height: 1px;
+  background: #fffaf2;
+  animation: hero-scroll-pulse 1.8s ease-in-out infinite;
+  content: '';
+}
+
+@keyframes hero-scroll-pulse {
+  0%,
+  100% {
+    transform: translateX(-105%);
+  }
+  50% {
+    transform: translateX(185%);
+  }
+}
+
+.hero-finale-shade {
+  z-index: 5;
+  background: #141210;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.hero-brand-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 8;
+  display: grid;
+  width: min(31rem, 48vw);
+  justify-items: center;
+  gap: 1.25rem;
+  color: #fffaf2;
+  text-align: center;
+  pointer-events: none;
   transform-origin: center;
-  will-change: transform;
-}
-
-.hero-panel-center {
-  margin-top: 7vh;
-}
-
-.hero-panel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform: scale(1.04);
-}
-
-.route-line {
-  position: absolute;
-  inset: clamp(9rem, 20vh, 13rem) 1vw auto max(29rem, 37vw);
-  z-index: 4;
-  width: min(64vw, 58rem);
-  height: 44vh;
-  pointer-events: none;
-}
-
-.route-line path {
-  fill: none;
-  stroke: var(--primary);
-  stroke-width: 3.5;
-  stroke-linecap: round;
-  stroke-dasharray: 1;
-  transition: stroke-dashoffset 80ms linear;
-}
-
-.hero-logo {
-  position: absolute;
-  left: clamp(2.5rem, 8vw, 7rem);
-  right: auto;
-  bottom: 24vh;
-  z-index: 6;
-  width: min(25rem, 36vw);
-  pointer-events: none;
   will-change: transform, opacity;
 }
 
-.hero-logo img {
+.hero-brand-reveal img {
   width: 100%;
   height: auto;
-  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.hero-brand-reveal p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .section {
@@ -1215,45 +1277,17 @@ dd {
   }
 
   .hero-scroll {
-    height: 180vh;
-  }
-
-  .hero-stage {
-    padding-top: clamp(4.5rem, 10vh, 6.5rem);
+    height: 300vh;
   }
 
   .hero-intro {
+    top: clamp(7.5rem, 17vh, 10rem);
     width: min(39rem, calc(100vw - 2 * var(--page-gutter)));
   }
 
   .hero-intro h1 {
-    font-size: clamp(3rem, 10vw, 5rem);
-  }
-
-  .hero-panels {
-    inset: max(39rem, 66vh) var(--page-gutter) auto;
-    grid-template-columns: 0.72fr 1fr 0.72fr;
-    gap: 0.5rem;
-  }
-
-  .hero-panel {
-    height: min(28vh, 18rem);
-  }
-
-  .hero-panel-center {
-    margin-top: 5vh;
-  }
-
-  .route-line {
-    inset: max(41rem, 70vh) 0 auto;
-    height: 26vh;
-  }
-
-  .hero-logo {
-    right: auto;
-    bottom: 7vh;
-    left: var(--page-gutter);
-    width: min(16rem, 21vw);
+    max-width: 9.5ch;
+    font-size: 4.7rem;
   }
 
   .section-heading,
@@ -1333,12 +1367,40 @@ dd {
   }
 
   .hero-stage {
-    padding-top: 3.5rem;
+    top: 4.5rem;
+    height: calc(100svh - 4.5rem);
+  }
+
+  .hero-scroll {
+    height: 255svh;
+  }
+
+  .hero-layer {
+    inset: 0 !important;
+  }
+
+  .hero-layer img {
+    object-position: var(--hero-position-mobile, 50% 50%);
+  }
+
+  .hero-reading-shade {
+    background: linear-gradient(
+      180deg,
+      rgb(17 15 14 / 34%) 0%,
+      rgb(17 15 14 / 62%) 67%,
+      rgb(17 15 14 / 72%) 100%
+    );
+  }
+
+  .hero-intro {
+    top: auto;
+    bottom: 6.25rem;
+    width: calc(100vw - 2 * var(--page-gutter));
   }
 
   .hero-intro h1 {
-    max-width: 10.5ch;
-    font-size: clamp(2.65rem, 12vw, 3.8rem);
+    max-width: 9.5ch;
+    font-size: 3.25rem;
     line-height: 1.04;
   }
 
@@ -1349,41 +1411,24 @@ dd {
   }
 
   .hero-actions {
-    align-items: stretch;
-    gap: 0.65rem;
     margin-top: 1.35rem;
   }
 
-  .hero-actions .obrii-button,
-  .hero-actions .obrii-outline {
+  .hero-actions .obrii-button {
     width: 100%;
   }
 
-  .hero-panels {
-    inset: max(38rem, 74vh) 0.75rem auto 58vw;
-    display: block;
+  .hero-scroll-hint {
+    bottom: 1.25rem;
   }
 
-  .hero-panel {
-    display: none;
+  .hero-brand-reveal {
+    width: min(19rem, 76vw);
+    gap: 1rem;
   }
 
-  .hero-panel-center {
-    display: block;
-    width: 100%;
-    height: min(30vh, 15rem);
-    margin-top: 0;
-  }
-
-  .route-line {
-    inset: max(39rem, 77vh) 0 auto;
-    height: 22vh;
-  }
-
-  .hero-logo {
-    bottom: 3.5vh;
-    left: 1rem;
-    width: min(11.25rem, 46vw);
+  .hero-brand-reveal p {
+    font-size: 0.9rem;
   }
 
   .offer-grid,
@@ -1493,12 +1538,29 @@ dd {
 
   .hero-stage {
     position: relative;
-    min-height: 100vh;
+    top: auto;
+    height: auto;
+    min-height: min(52rem, calc(100svh - 5.75rem));
   }
 
-  .hero-intro,
-  .hero-logo {
+  .hero-intro {
     opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+
+  .hero-layer {
+    inset: 0 !important;
+    clip-path: none !important;
+    transform: none !important;
+  }
+
+  .hero-layer-mountain,
+  .hero-layer-events,
+  .hero-finale-shade,
+  .hero-brand-reveal,
+  .hero-scroll-hint {
+    display: none;
   }
 
   .owner-photo-holiday {

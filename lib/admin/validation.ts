@@ -60,6 +60,9 @@ export function validateContent(input: unknown): Content {
   data.heroPanels.forEach((p) => {
     if (!['beach', 'mountain', 'events'].includes(p.id)) fail('heroPanels.id');
     image(p.image);
+    for (const pos of [p.desktopPosition, p.mobilePosition])
+      if (!/^(100|\d{1,2})% (100|\d{1,2})%$/.test(pos))
+        fail('фокус hero: наприклад 50% 50%');
   });
   data.owners.forEach((o) => {
     image(o.image);

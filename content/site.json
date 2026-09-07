@@ -26,6 +26,7 @@
       "heroText": "Від першої ідеї до повернення додому персонально плануємо маршрут і беремо на себе кожну деталь.",
       "primaryCta": "Підібрати подорож",
       "secondaryCta": "Познайомитися з сервісом",
+      "brandLine": "Ваші обрії. Наше піклування",
       "selectedTrips": "Актуальні подорожі",
       "demoNotice": "Демонстраційний контент. Доступність і бюджет уточнюються менеджером.",
       "collectionLink": "Увесь каталог",
@@ -45,6 +46,7 @@
       "heroText": "From the first idea to the return home, we plan the route personally and take care of every detail.",
       "primaryCta": "Plan your trip",
       "secondaryCta": "Explore service",
+      "brandLine": "Your horizons. Our care",
       "selectedTrips": "Private collection",
       "demoNotice": "Demo content. Availability and budget are confirmed by a manager.",
       "collectionLink": "Full catalog",
@@ -66,7 +68,9 @@
       "alt": {
         "ua": "Приватний пляж із білим піском і лазурним морем",
         "en": "Private white sand beach with turquoise sea"
-      }
+      },
+      "desktopPosition": "50% 52%",
+      "mobilePosition": "58% 50%"
     },
     {
       "id": "mountain",
@@ -74,7 +78,9 @@
       "alt": {
         "ua": "Сучасне шале з infinity pool у горах",
         "en": "Modern mountain chalet with an infinity pool"
-      }
+      },
+      "desktopPosition": "50% 50%",
+      "mobilePosition": "56% 50%"
     },
     {
       "id": "events",
@@ -82,7 +88,9 @@
       "alt": {
         "ua": "Автоспортивна подія з VIP-hospitality тераси",
         "en": "Motorsport event from a VIP hospitality terrace"
-      }
+      },
+      "desktopPosition": "50% 50%",
+      "mobilePosition": "62% 50%"
     }
   ],
   "offers": [

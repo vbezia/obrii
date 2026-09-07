@@ -2,7 +2,14 @@
 
 /* oxlint-disable react/react-compiler, nextjs/no-img-element */
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type RefObject,
+} from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -175,104 +182,163 @@ function Footer({ locale }: { locale: Locale }) {
   );
 }
 
-function useScrollProgress() {
+function useScrollProgress(heroRef: RefObject<HTMLElement | null>) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const reduceMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches;
-    if (reduceMotion) {
-      setProgress(1);
-      return;
-    }
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame: number | null = null;
+
     const update = () => {
-      const hero = document.getElementById('hero');
+      frame = null;
+      if (motionQuery.matches) {
+        setProgress(0);
+        return;
+      }
+      const hero = heroRef.current;
       if (!hero) return;
       const rect = hero.getBoundingClientRect();
       const available = Math.max(1, rect.height - window.innerHeight);
-      setProgress(Math.min(1, Math.max(0, -rect.top / available)));
+      const next = Math.min(1, Math.max(0, -rect.top / available));
+      setProgress((current) =>
+        Math.abs(current - next) > 0.001 ? next : current,
+      );
     };
-    update();
-    window.addEventListener('scroll', update, { passive: true });
-    window.addEventListener('resize', update);
+    const queueUpdate = () => {
+      if (frame === null) frame = requestAnimationFrame(update);
+    };
+
+    queueUpdate();
+    window.addEventListener('scroll', queueUpdate, { passive: true });
+    window.addEventListener('resize', queueUpdate);
+    window.addEventListener('orientationchange', queueUpdate);
+    motionQuery.addEventListener('change', queueUpdate);
     return () => {
-      window.removeEventListener('scroll', update);
-      window.removeEventListener('resize', update);
+      if (frame !== null) cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', queueUpdate);
+      window.removeEventListener('resize', queueUpdate);
+      window.removeEventListener('orientationchange', queueUpdate);
+      motionQuery.removeEventListener('change', queueUpdate);
     };
-  }, []);
+  }, [heroRef]);
 
   return progress;
 }
 
+function timeline(progress: number, start: number, end: number) {
+  return Math.min(1, Math.max(0, (progress - start) / (end - start)));
+}
+
+function mix(from: number, to: number, amount: number) {
+  return from + (to - from) * amount;
+}
+
 function Hero({ locale }: { locale: Locale }) {
   const t = copy[locale];
-  const progress = useScrollProgress();
-  const introOpacity = Math.max(0, 1 - progress * 2.8);
-  const logoOpacity = Math.max(0, Math.min(1, (progress - 0.82) / 0.16));
-  const transforms = [
-    `translate3d(${-progress * 7}vw, ${-progress * 16}vh, 0) rotate(${-progress * 3}deg) scale(${1 - progress * 0.04})`,
-    `translate3d(0, ${progress * 10}vh, 0) scale(${1 + progress * 0.18})`,
-    `translate3d(${progress * 7}vw, ${-progress * 16}vh, 0) rotate(${progress * 3}deg) scale(${1 - progress * 0.04})`,
-  ];
+  const heroRef = useRef<HTMLElement>(null);
+  const progress = useScrollProgress(heroRef);
+  const introExit = timeline(progress, 0.15, 0.35);
+  const mountainReveal = timeline(progress, 0.35, 0.55);
+  const eventReveal = timeline(progress, 0.55, 0.75);
+  const composition = timeline(progress, 0.75, 0.9);
+  const finale = timeline(progress, 0.9, 0.97);
+  const panelLeft = [2.5, 34.5, 66.5];
+  const panelRight = [66.5, 34.5, 2.5];
+  const introVisible = progress < 0.35;
+
+  const layerStyle = (index: number) => {
+    const reveal = index === 1 ? mountainReveal : eventReveal;
+    const scale =
+      index === 0
+        ? 1 + timeline(progress, 0.15, 0.35) * 0.06
+        : 1.035 - reveal * 0.015;
+    return {
+      inset: `${mix(0, 7, composition)}% ${mix(0, panelRight[index], composition)}% ${mix(0, 7, composition)}% ${mix(0, panelLeft[index], composition)}%`,
+      clipPath:
+        index === 0 ? 'inset(0)' : `inset(0 0 0 ${(1 - reveal) * 100}%)`,
+      transform: `translate3d(${index === 0 ? 0 : (1 - reveal) * 5}%, 0, 0)`,
+      zIndex: index + 1,
+      '--hero-image-scale': scale,
+      '--hero-position-desktop': heroPanels[index].desktopPosition,
+      '--hero-position-mobile': heroPanels[index].mobilePosition,
+    } as CSSProperties;
+  };
 
   return (
-    <section id="hero" className="hero-scroll" aria-label={t.heroTitle}>
+    <section
+      ref={heroRef}
+      id="hero"
+      className="hero-scroll"
+      aria-label={t.heroTitle}
+    >
       <div className="hero-stage">
+        <div className="hero-scenes">
+          {heroPanels.map((panel, index) => (
+            <figure
+              className={cn('hero-layer', `hero-layer-${panel.id}`)}
+              key={panel.id}
+              style={layerStyle(index)}
+            >
+              <img
+                src={panel.image}
+                alt={panel.alt[locale]}
+                loading="eager"
+                fetchPriority={index === 0 ? 'high' : 'auto'}
+              />
+            </figure>
+          ))}
+        </div>
+        <div
+          className="hero-reading-shade"
+          style={{ opacity: 1 - introExit }}
+          aria-hidden="true"
+        />
         <div
           className="hero-intro"
           style={{
-            opacity: introOpacity,
-            transform: `translateY(${-progress * 34}px)`,
+            opacity: 1 - introExit,
+            transform: `translate3d(0, ${-introExit * 32}px, 0)`,
+            visibility: introVisible ? 'visible' : 'hidden',
           }}
+          aria-hidden={!introVisible}
         >
-          <p className="eyebrow">VIP travel concierge</p>
+          <p className="eyebrow">OBRII · індивідуальні подорожі</p>
           <h1>{t.heroTitle}</h1>
           <p>{t.heroText}</p>
           <div className="hero-actions">
             <Link
               href={withLocale('/plan-your-trip', locale)}
               className="obrii-button cta-link"
+              tabIndex={introVisible ? undefined : -1}
             >
               {t.primaryCta}
             </Link>
-            <Link
-              href={withLocale('/concierge', locale)}
-              className="obrii-outline cta-link"
-            >
-              {t.secondaryCta}
-            </Link>
           </div>
         </div>
-        <svg className="route-line" viewBox="0 0 1000 420" aria-hidden="true">
-          <path
-            d="M78 268 C218 100 368 114 493 228 S768 364 928 118"
-            pathLength="1"
-            style={{ strokeDashoffset: Math.max(0, 1 - progress * 1.4) }}
-          />
-        </svg>
-        <div className="hero-panels">
-          {heroPanels.map((panel, index) => (
-            <figure
-              className={cn('hero-panel', index === 1 && 'hero-panel-center')}
-              key={panel.id}
-              style={{
-                transform: transforms[index],
-                zIndex: index === 1 ? 3 : 2,
-              }}
-            >
-              <img src={panel.image} alt={panel.alt[locale]} />
-            </figure>
-          ))}
+        <div
+          className="hero-scroll-hint"
+          style={{ opacity: 1 - timeline(progress, 0.08, 0.18) }}
+          aria-hidden="true"
+        >
+          <span>{locale === 'ua' ? 'Гортайте' : 'Scroll'}</span>
+          <i />
         </div>
         <div
-          className="hero-logo"
+          className="hero-finale-shade"
+          style={{ opacity: finale * 0.58 }}
+          aria-hidden="true"
+        />
+        <div
+          className="hero-brand-reveal"
           style={{
-            opacity: logoOpacity,
-            transform: `translate3d(${(1 - logoOpacity) * -75}vw, 0, 0)`,
+            opacity: finale,
+            transform: `translate3d(-50%, calc(-50% + ${mix(18, 0, finale)}px), 0) scale(${mix(0.96, 1, finale)})`,
+            visibility: finale > 0.01 ? 'visible' : 'hidden',
           }}
+          aria-hidden={finale <= 0.01}
         >
           <img src="/assets/brand/logo-transparent.png" alt="OBRII" />
+          <p>{t.brandLine}</p>
         </div>
       </div>
     </section>

@@ -30,6 +30,7 @@ const labels: Record<string, string> = {
   heroText: 'Опис першого екрана',
   primaryCta: 'Головна кнопка',
   secondaryCta: 'Друга кнопка',
+  brandLine: 'Підпис під логотипом у фіналі',
   selectedTrips: 'Заголовок добірки турів',
   demoNotice: 'Примітка до добірки',
   collectionLink: 'Посилання на каталог',
@@ -671,6 +672,16 @@ export function AdminEditor({
                           i,
                           'alt',
                           locale,
+                        ])}
+                        {field('Фокус desktop — X% Y%', [
+                          'heroPanels',
+                          i,
+                          'desktopPosition',
+                        ])}
+                        {field('Фокус mobile — X% Y%', [
+                          'heroPanels',
+                          i,
+                          'mobilePosition',
                         ])}
                       </Group>
                     ))}
