@@ -2,7 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { scryptSync } from 'node:crypto';
 import defaults from '../content/site.json' with { type: 'json' };
-import { validateContent, validateMedia } from '../lib/admin/validation.ts';
+import {
+  validateContent,
+  validateMedia,
+  type Content,
+} from '../lib/admin/validation.ts';
 import {
   makeSession,
   validSession,
@@ -131,7 +135,11 @@ await test('Git publish uses an atomic commit and rejects stale versions / concu
   try {
     const loaded = await readContent();
     assert.equal(loaded.version, head);
-    const result = await publishContent(defaults, [], loaded.version);
+    const result = await publishContent(
+      defaults as unknown as Content,
+      [],
+      loaded.version,
+    );
     assert.equal(result.version, 'b'.repeat(40));
     assert.equal(
       (calls.find((c) => c.method === 'PATCH')!.body as { force: boolean })
@@ -145,14 +153,18 @@ await test('Git publish uses an atomic commit and rejects stale versions / concu
     assert.equal(tree.base_tree, 'tree-base');
     assert.equal(tree.tree[0].path, 'content/site.json');
     const count = calls.length;
-    await assert.rejects(() => publishContent(defaults, [], loaded.version), {
-      status: 409,
-    });
+    await assert.rejects(
+      () => publishContent(defaults as unknown as Content, [], loaded.version),
+      {
+        status: 409,
+      },
+    );
     assert.equal(calls.length, count + 1);
     race = true;
-    await assert.rejects(() => publishContent(defaults, [], head), {
-      status: 409,
-    });
+    await assert.rejects(
+      () => publishContent(defaults as unknown as Content, [], head),
+      { status: 409 },
+    );
   } finally {
     globalThis.fetch = original;
   }

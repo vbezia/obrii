@@ -210,6 +210,13 @@
       "slug": "private-villa-como",
       "featured": true,
       "order": 1,
+      "price": {
+        "type": "on_request",
+        "amount": null,
+        "currency": "EUR",
+        "basis": "trip",
+        "note": ""
+      },
       "title": {
         "ua": "Тиждень на приватній віллі на Комо",
         "en": "A Week at a Private Villa on Como"

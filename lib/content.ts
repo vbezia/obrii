@@ -1,6 +1,6 @@
 import rawData from '@/content/site.json';
 import type { Content } from '@/lib/admin/validation';
-const data: Content = rawData;
+const data = rawData as unknown as Content;
 
 export type Locale = 'ua' | 'en';
 export const {

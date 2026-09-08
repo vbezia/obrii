@@ -17,6 +17,7 @@ For a Preview deployment, use separate credentials and set `CMS_GITHUB_BRANCH` t
 ## Editing and publishing
 
 - Add/edit tours, toggle visibility and homepage placement, set ordering, and upload images. Hidden tours disappear from the catalog, homepage, detail route and sitemap after deployment. They are **not private**: this repository is public and hidden records must not contain confidential data.
+- Tour prices are stored as integer minor units: `350000` means `3,500.00` in the selected currency. The admin editor converts this to and from a regular decimal amount. Use "За запитом" when no approved amount is available; it stores `amount: null` and never exposes a zero fallback.
 - The homepage shows the first six visible, featured tours by order.
 - Use JPG, PNG or WebP images (2 MiB each, 3 MiB combined per publish), or HTTPS image URLs. Uploads and content are committed together. Larger image batches can be published in successive updates. Uploaded files are retained in Git history; deleting a tour does not delete its image.
 - Each Publish creates one Git commit, then Vercel's existing Git integration builds the site. A successful save means Git accepted the content, **not that deployment has completed**. Check the Vercel build if changes do not appear. No deploy hook is necessary when the production branch integration is enabled.

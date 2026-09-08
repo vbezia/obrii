@@ -15,6 +15,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import type { Content, Media } from '@/lib/admin/validation';
+import { TourPriceDisplay } from '@/components/tour-price';
 
 type Path = (string | number)[];
 const sections = [
@@ -370,6 +371,13 @@ export function AdminEditor({
           published: false,
           featured: false,
           order: data.offers.length + 1,
+          price: {
+            type: 'on_request',
+            amount: null,
+            currency: 'EUR',
+            basis: 'trip',
+            note: '',
+          },
           title: { ua: 'Нова подорож', en: 'New journey' },
           destination: { ...text },
           format: { ...text },
@@ -647,6 +655,154 @@ export function AdminEditor({
                           ['offers', selected, 'description', locale],
                           true,
                         )}
+                        <section className="admin-price-section">
+                          <h3>Вартість</h3>
+                          <div className="admin-grid">
+                            <div className="admin-field">
+                              <label htmlFor="offer-price-type">
+                                Формат ціни
+                              </label>
+                              <select
+                                id="offer-price-type"
+                                value={offer.price.type}
+                                onChange={(event) => {
+                                  const next = event.target.value as
+                                    | 'from'
+                                    | 'fixed'
+                                    | 'on_request';
+                                  change(
+                                    ['offers', selected, 'price', 'type'],
+                                    next,
+                                  );
+                                  if (next === 'on_request')
+                                    change(
+                                      ['offers', selected, 'price', 'amount'],
+                                      null,
+                                    );
+                                }}
+                              >
+                                <option value="from">Від</option>
+                                <option value="fixed">Фіксована</option>
+                                <option value="on_request">За запитом</option>
+                              </select>
+                            </div>
+                            {offer.price.type !== 'on_request' && (
+                              <>
+                                <div className="admin-field">
+                                  <label htmlFor="offer-price-amount">
+                                    Сума
+                                  </label>
+                                  <Input
+                                    id="offer-price-amount"
+                                    type="number"
+                                    min="0.01"
+                                    step="0.01"
+                                    inputMode="decimal"
+                                    value={
+                                      offer.price.amount === null
+                                        ? ''
+                                        : offer.price.amount / 100
+                                    }
+                                    onChange={(event) => {
+                                      const raw = event.target.value;
+                                      if (raw === '') {
+                                        setError('');
+                                        change(
+                                          [
+                                            'offers',
+                                            selected,
+                                            'price',
+                                            'amount',
+                                          ],
+                                          null,
+                                        );
+                                        return;
+                                      }
+                                      if (
+                                        !/^\d+(?:\.\d{0,2})?$/.test(raw) ||
+                                        Number(raw) <= 0
+                                      ) {
+                                        setError(
+                                          'Вкажіть додатну суму, не більше двох знаків після коми.',
+                                        );
+                                        return;
+                                      }
+                                      setError('');
+                                      change(
+                                        ['offers', selected, 'price', 'amount'],
+                                        Math.round(Number(raw) * 100),
+                                      );
+                                    }}
+                                  />
+                                  <small>
+                                    До двох знаків після коми. У даних сума
+                                    зберігається в копійках.
+                                  </small>
+                                </div>
+                                <div className="admin-field">
+                                  <label htmlFor="offer-price-currency">
+                                    Валюта
+                                  </label>
+                                  <select
+                                    id="offer-price-currency"
+                                    value={offer.price.currency}
+                                    onChange={(event) =>
+                                      change(
+                                        [
+                                          'offers',
+                                          selected,
+                                          'price',
+                                          'currency',
+                                        ],
+                                        event.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option value="EUR">EUR</option>
+                                    <option value="USD">USD</option>
+                                    <option value="UAH">UAH</option>
+                                  </select>
+                                </div>
+                                <div className="admin-field">
+                                  <label htmlFor="offer-price-basis">
+                                    За кого / за що
+                                  </label>
+                                  <select
+                                    id="offer-price-basis"
+                                    value={offer.price.basis}
+                                    onChange={(event) =>
+                                      change(
+                                        ['offers', selected, 'price', 'basis'],
+                                        event.target.value,
+                                      )
+                                    }
+                                  >
+                                    <option value="person">За особу</option>
+                                    <option value="two_people">За двох</option>
+                                    <option value="group">За групу</option>
+                                    <option value="night">За ніч</option>
+                                    <option value="trip">За подорож</option>
+                                  </select>
+                                </div>
+                              </>
+                            )}
+                          </div>
+                          {field('Пояснення до ціни', [
+                            'offers',
+                            selected,
+                            'price',
+                            'note',
+                          ])}
+                          <div className="admin-price-preview">
+                            <span>Попередній перегляд</span>
+                            {offer.price.type !== 'on_request' &&
+                            !offer.price.amount ? (
+                              <p>Вкажіть суму більше нуля.</p>
+                            ) : (
+                              <TourPriceDisplay price={offer.price} />
+                            )}
+                          </div>
+                        </section>
                         {photo('Фото подорожі', ['offers', selected, 'image'])}
                         <Button
                           variant="destructive"

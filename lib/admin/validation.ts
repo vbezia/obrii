@@ -1,6 +1,18 @@
 import defaults from '../../content/schema.json' with { type: 'json' };
 
-export type Content = typeof defaults;
+export type TourPrice = {
+  type: 'from' | 'fixed' | 'on_request';
+  /** Integer minor units: 350000 means 3,500.00 in the selected currency. */
+  amount: number | null;
+  currency: 'EUR' | 'USD' | 'UAH';
+  basis: 'person' | 'two_people' | 'group' | 'night' | 'trip';
+  note: string;
+};
+type DefaultContent = typeof defaults;
+type DefaultOffer = DefaultContent['offers'][number];
+export type Content = Omit<DefaultContent, 'offers'> & {
+  offers: Array<Omit<DefaultOffer, 'price'> & { price: TourPrice }>;
+};
 export type Media = { path: string; content: string };
 export class AdminError extends Error {
   status: number;
@@ -22,9 +34,42 @@ export function validImage(value: string): boolean {
     return false;
   }
 }
+
+function addDefaultTourPrices(input: unknown): unknown {
+  let migrated: unknown;
+  try {
+    migrated = structuredClone(input);
+  } catch {
+    fail('content');
+  }
+  if (!migrated || typeof migrated !== 'object' || Array.isArray(migrated))
+    return migrated;
+  const offers = (migrated as Record<string, unknown>).offers;
+  if (!Array.isArray(offers)) return migrated;
+  for (const offer of offers) {
+    if (
+      offer &&
+      typeof offer === 'object' &&
+      !Array.isArray(offer) &&
+      !Object.hasOwn(offer, 'price')
+    ) {
+      (offer as Record<string, unknown>).price = {
+        type: 'on_request',
+        amount: null,
+        currency: 'EUR',
+        basis: 'trip',
+        note: '',
+      } satisfies TourPrice;
+    }
+  }
+  return migrated;
+}
+
 export function validateContent(input: unknown): Content {
   function shape(value: unknown, sample: unknown, path: string): void {
-    if (Array.isArray(sample)) {
+    if (sample === null) {
+      if (value !== null && typeof value !== 'number') fail(path);
+    } else if (Array.isArray(sample)) {
       if (!Array.isArray(value) || value.length > 100) return fail(path);
       for (const [i, item] of value.entries())
         shape(item, sample[0], `${path}.${i}`);
@@ -44,8 +89,9 @@ export function validateContent(input: unknown): Content {
     )
       fail(path);
   }
-  shape(input, defaults, 'content');
-  const data = input as Content;
+  const migrated = addDefaultTourPrices(input);
+  shape(migrated, defaults, 'content');
+  const data = migrated as Content;
   if (JSON.stringify(data).length > 750000) fail('content: забагато тексту');
   if (
     data.heroPanels.length !== 3 ||
@@ -138,6 +184,25 @@ export function validateContent(input: unknown): Content {
     slugs.add(o.slug);
     ids.add(o.id);
     image(o.image);
+    if (!['from', 'fixed', 'on_request'].includes(o.price.type))
+      fail('формат ціни');
+    if (!['EUR', 'USD', 'UAH'].includes(o.price.currency)) fail('валюта ціни');
+    if (
+      !['person', 'two_people', 'group', 'night', 'trip'].includes(
+        o.price.basis,
+      )
+    )
+      fail('основа ціни');
+    if (o.price.note.length > 300) fail('пояснення до ціни');
+    if (o.price.type === 'on_request') {
+      if (o.price.amount !== null) fail('сума для ціни за запитом');
+    } else if (
+      !Number.isSafeInteger(o.price.amount) ||
+      Number(o.price.amount) <= 0 ||
+      Number(o.price.amount) > 100_000_000_000
+    ) {
+      fail('сума ціни');
+    }
   });
   for (const locale of ['ua', 'en'] as const) {
     if (data.copy[locale].nav.length !== 5) fail('навігація');

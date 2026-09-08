@@ -459,6 +459,13 @@
       "slug": "private-villa-como",
       "featured": true,
       "order": 3,
+      "price": {
+        "type": "from",
+        "amount": 1250000,
+        "currency": "USD",
+        "basis": "trip",
+        "note": "Орієнтовна вартість за подорож"
+      },
       "title": {
         "ua": "Тиждень на приватній віллі на Комо",
         "en": "A Week at a Private Villa on Como"
@@ -495,6 +502,13 @@
       "slug": "iceland-winter-private-guide",
       "featured": true,
       "order": 1,
+      "price": {
+        "type": "from",
+        "amount": 790000,
+        "currency": "USD",
+        "basis": "person",
+        "note": "Орієнтовна вартість за особу"
+      },
       "title": {
         "ua": "Зимова Ісландія з персональним гідом",
         "en": "Winter Iceland with a Private Guide"
@@ -531,6 +545,13 @@
       "slug": "gastronomic-japan",
       "featured": true,
       "order": 2,
+      "price": {
+        "type": "fixed",
+        "amount": 1480000,
+        "currency": "USD",
+        "basis": "two_people",
+        "note": "Вартість програми для двох"
+      },
       "title": {
         "ua": "Гастрономічна Японія",
         "en": "Gastronomic Japan"
@@ -567,6 +588,13 @@
       "slug": "seychelles-private-yacht",
       "featured": true,
       "order": 4,
+      "price": {
+        "type": "from",
+        "amount": 2200000,
+        "currency": "USD",
+        "basis": "group",
+        "note": "Орієнтовна вартість за групу"
+      },
       "title": {
         "ua": "Приватна яхта на Сейшелах",
         "en": "Private Yacht in the Seychelles"
@@ -603,6 +631,13 @@
       "slug": "wellness-alpine-retreat",
       "featured": true,
       "order": 5,
+      "price": {
+        "type": "from",
+        "amount": 95000,
+        "currency": "USD",
+        "basis": "night",
+        "note": "Орієнтовна вартість за ніч"
+      },
       "title": {
         "ua": "Wellness-retreat в Альпах",
         "en": "Alpine Wellness Retreat"
@@ -639,6 +674,13 @@
       "slug": "vip-sport-weekend",
       "featured": true,
       "order": 6,
+      "price": {
+        "type": "fixed",
+        "amount": 680000,
+        "currency": "USD",
+        "basis": "two_people",
+        "note": "Вартість вікенду для двох"
+      },
       "title": {
         "ua": "VIP-вікенд на спортивній події",
         "en": "VIP Weekend at a Sporting Event"
@@ -675,6 +717,13 @@
       "slug": "family-mediterranean-summer",
       "featured": false,
       "order": 7,
+      "price": {
+        "type": "from",
+        "amount": 1120000,
+        "currency": "USD",
+        "basis": "trip",
+        "note": "Орієнтовна вартість сімейної подорожі"
+      },
       "title": {
         "ua": "Сімейне літо на Середземному морі",
         "en": "Family Summer on the Mediterranean"
@@ -711,6 +760,13 @@
       "slug": "executive-travel-europe",
       "featured": false,
       "order": 8,
+      "price": {
+        "type": "from",
+        "amount": 1850000,
+        "currency": "USD",
+        "basis": "group",
+        "note": "Орієнтовна вартість за приватну групу"
+      },
       "title": {
         "ua": "Executive travel для приватної групи",
         "en": "Executive Travel for a Private Group"

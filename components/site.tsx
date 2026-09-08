@@ -33,6 +33,7 @@ import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import { configuredContacts } from '@/lib/contact-links';
+import { TourPriceDisplay } from '@/components/tour-price';
 import {
   copy,
   formatCards,
@@ -378,6 +379,7 @@ function OfferCard({
         <p className="eyebrow">{offer.destination[locale]}</p>
         <h3>{offer.title[locale]}</h3>
         <p>{offer.excerpt[locale]}</p>
+        <TourPriceDisplay price={offer.price} />
         <dl>
           <div>
             <dt>{locale === 'ua' ? 'Тривалість' : 'Duration'}</dt>
@@ -1674,6 +1676,15 @@ export function OfferDetailPage({ slug }: { slug: string }) {
           {offer.description.ua && (
             <p style={{ whiteSpace: 'pre-line' }}>{offer.description.ua}</p>
           )}
+          <div className="detail-price">
+            <TourPriceDisplay price={offer.price} />
+            {offer.price.note && <p>{offer.price.note}</p>}
+            <p>
+              {offer.price.type === 'on_request'
+                ? 'Вартість розраховується індивідуально після уточнення ваших побажань.'
+                : 'Остаточна вартість залежить від дат, складу подорожі та доступності послуг і підтверджується менеджером.'}
+            </p>
+          </div>
           <p className="demo-note">{detailNote.ua}</p>
           <Link
             href={`/plan-your-trip?offer=${offer.slug}`}

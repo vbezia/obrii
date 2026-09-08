@@ -1,3 +1,6 @@
+import { offers } from '@/lib/content';
+import { resolveOfferForInquiry } from '@/lib/tour-price';
+
 type TripRequest = Record<string, unknown> & {
   clientRequestId?: string;
   name?: string;
@@ -133,7 +136,8 @@ function makeMessage(payload: TripRequest, id: string) {
   }).format(new Date());
   const dates = payload.flexibleDates
     ? 'Дати гнучкі'
-    : clean(payload.month) || `${clean(payload.startDate)} - ${clean(payload.endDate)}`;
+    : clean(payload.month) ||
+      `${clean(payload.startDate)} - ${clean(payload.endDate)}`;
   const travelers = `${Number(payload.adults || 1)} дорослих, ${Number(payload.children || 0)} дітей${
     Number(payload.children || 0) > 0
       ? ` (${(payload.childAges ?? []).map((age) => clean(age, 20)).join(', ')})`
@@ -145,6 +149,9 @@ function makeMessage(payload: TripRequest, id: string) {
         payload.budgetType === 'person' ? 'на одну особу' : 'на всю подорож'
       }`;
   const source = payload.source ?? {};
+  const offerContext = source.offerId
+    ? resolveOfferForInquiry(clean(source.offerId, 120), offers)
+    : null;
   const utm = Object.entries(source)
     .filter(([key]) => key.startsWith('utm_'))
     .map(([key, value]) => `${key}: ${clean(value, 100)}`)
@@ -168,8 +175,11 @@ function makeMessage(payload: TripRequest, id: string) {
     `<b>Бюджет:</b> ${escapeHtml(budget)}`,
     `<b>Побажання:</b> ${escapeHtml(payload.wishes) || '-'}`,
     '',
-    source.offerId
-      ? `<b>Пропозиція:</b> ${escapeHtml(source.offerTitle)} · ${escapeHtml(source.offerId)}\n${escapeHtml(source.offerUrl)}`
+    offerContext
+      ? offerContext.text
+          .split('\n')
+          .map((line) => escapeHtml(line))
+          .join('\n')
       : '<b>Пропозиція:</b> -',
     `<b>Сторінка:</b> ${escapeHtml(source.page) || '-'}`,
     utm ? `<b>UTM:</b>\n${escapeHtml(utm)}` : '<b>UTM:</b> -',
@@ -225,19 +235,24 @@ export async function POST(request: Request) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 7500);
   try {
-    const response = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: 'POST',
-      signal: controller.signal,
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        message_thread_id: threadId ? Number(threadId) : undefined,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true,
-        text: makeMessage(payload, id),
-      }),
-    });
-    const telegramResult = (await response.json().catch(() => null)) as TelegramResponse;
+    const response = await fetch(
+      `https://api.telegram.org/bot${token}/sendMessage`,
+      {
+        method: 'POST',
+        signal: controller.signal,
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          message_thread_id: threadId ? Number(threadId) : undefined,
+          parse_mode: 'HTML',
+          disable_web_page_preview: true,
+          text: makeMessage(payload, id),
+        }),
+      },
+    );
+    const telegramResult = (await response
+      .json()
+      .catch(() => null)) as TelegramResponse;
     if (!response.ok || !telegramResult?.ok) {
       console.error('telegram_delivery_failed', {
         status: response.status,
