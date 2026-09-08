@@ -369,7 +369,13 @@
   },
   "copy": {
     "ua": {
-      "nav": ["Подорожі", "Консьєрж", "Колекції", "Про нас", "Контакти"],
+      "nav": [
+        "Подорожі",
+        "Консьєрж",
+        "Колекції",
+        "Про нас",
+        "Контакти"
+      ],
       "heroTitle": "Подорожі, створені навколо вас",
       "heroText": "Від першої ідеї до повернення додому персонально плануємо маршрут і беремо на себе кожну деталь.",
       "primaryCta": "Підібрати подорож",
@@ -389,7 +395,13 @@
       "finalText": "Форма збере ключові побажання, а менеджер OBRII повернеться з уточненнями для персонального підбору."
     },
     "en": {
-      "nav": ["Travel", "Concierge", "Collections", "About", "Contacts"],
+      "nav": [
+        "Travel",
+        "Concierge",
+        "Collections",
+        "About",
+        "Contacts"
+      ],
       "heroTitle": "Journeys arranged around you",
       "heroText": "From the first idea to the return home, we plan the route personally and take care of every detail.",
       "primaryCta": "Plan your trip",
@@ -446,7 +458,7 @@
       "id": "OBRII-DEMO-001",
       "slug": "private-villa-como",
       "featured": true,
-      "order": 1,
+      "order": 3,
       "title": {
         "ua": "Тиждень на приватній віллі на Комо",
         "en": "A Week at a Private Villa on Como"
@@ -482,7 +494,7 @@
       "id": "OBRII-DEMO-002",
       "slug": "iceland-winter-private-guide",
       "featured": true,
-      "order": 2,
+      "order": 1,
       "title": {
         "ua": "Зимова Ісландія з персональним гідом",
         "en": "Winter Iceland with a Private Guide"
@@ -518,7 +530,7 @@
       "id": "OBRII-DEMO-003",
       "slug": "gastronomic-japan",
       "featured": true,
-      "order": 3,
+      "order": 2,
       "title": {
         "ua": "Гастрономічна Японія",
         "en": "Gastronomic Japan"
@@ -739,7 +751,10 @@
         "en": "A quiet private residence by Lake Como"
       },
       "imagePosition": "50% 50%",
-      "eyebrow": { "ua": "ПРО OBRII", "en": "ABOUT OBRII" },
+      "eyebrow": {
+        "ua": "ПРО OBRII",
+        "en": "ABOUT OBRII"
+      },
       "title": {
         "ua": "За кожною подорожжю — люди.",
         "en": "Behind every journey are people."
@@ -748,7 +763,10 @@
         "ua": "OBRII — українська туристична агенція, що поєднує досвід у подорожах, персональний сервіс і увагу до деталей. Ми допомагаємо знаходити місця та враження, які відповідають саме вам.",
         "en": "OBRII is a Ukrainian travel agency combining travel expertise, personal service and attention to detail. We help find places and experiences that feel right for you."
       },
-      "cta": { "ua": "Познайомитися з командою", "en": "Meet the team" }
+      "cta": {
+        "ua": "Познайомитися з командою",
+        "en": "Meet the team"
+      }
     },
     "approach": {
       "heading": {
@@ -766,7 +784,10 @@
         }
       ]
     },
-    "teamHeading": { "ua": "Співвласники", "en": "Co-owners" },
+    "teamHeading": {
+      "ua": "Співвласники",
+      "en": "Co-owners"
+    },
     "principles": {
       "heading": {
         "ua": "Що важливо в нашій роботі",
@@ -775,7 +796,10 @@
       "items": [
         {
           "id": "personal",
-          "title": { "ua": "Персональний підхід", "en": "A personal approach" },
+          "title": {
+            "ua": "Персональний підхід",
+            "en": "A personal approach"
+          },
           "description": {
             "ua": "Враховуємо ваші побажання, склад подорожі та комфортний ритм.",
             "en": "We consider your wishes, travel party and comfortable pace."
@@ -785,7 +809,10 @@
         },
         {
           "id": "details",
-          "title": { "ua": "Увага до деталей", "en": "Attention to detail" },
+          "title": {
+            "ua": "Увага до деталей",
+            "en": "Attention to detail"
+          },
           "description": {
             "ua": "Продумуємо логістику, проживання й організаційні нюанси разом із вами.",
             "en": "We consider logistics, accommodation and organisational details with you."
@@ -795,7 +822,10 @@
         },
         {
           "id": "clarity",
-          "title": { "ua": "Зрозумілі домовленості", "en": "Clear agreements" },
+          "title": {
+            "ua": "Зрозумілі домовленості",
+            "en": "Clear agreements"
+          },
           "description": {
             "ua": "Погоджуємо склад послуг, вартість та умови до підтвердження замовлення.",
             "en": "We agree services, costs and terms before an order is confirmed."
@@ -827,8 +857,14 @@
         "ua": "Розкажіть, куди вас тягне і як ви хочете провести цей час. Допоможемо визначитися з наступними кроками.",
         "en": "Tell us where you feel drawn and how you want to spend the time. We will help define the next steps."
       },
-      "primary": { "ua": "Підібрати подорож", "en": "Plan a journey" },
-      "secondary": { "ua": "Зв’язатися з нами", "en": "Contact us" }
+      "primary": {
+        "ua": "Підібрати подорож",
+        "en": "Plan a journey"
+      },
+      "secondary": {
+        "ua": "Зв’язатися з нами",
+        "en": "Contact us"
+      }
     },
     "seo": {
       "title": "Про нас — команда та підхід OBRII",
@@ -838,7 +874,10 @@
   },
   "contactsPage": {
     "hero": {
-      "eyebrow": { "ua": "КОНТАКТИ", "en": "CONTACTS" },
+      "eyebrow": {
+        "ua": "КОНТАКТИ",
+        "en": "CONTACTS"
+      },
       "title": {
         "ua": "Почнімо з розмови.",
         "en": "Let’s start with a conversation."
@@ -849,14 +888,20 @@
       }
     },
     "online": {
-      "heading": { "ua": "Працюємо онлайн", "en": "We work online" },
+      "heading": {
+        "ua": "Працюємо онлайн",
+        "en": "We work online"
+      },
       "text": {
         "ua": "Обговорюємо ваші плани дистанційно — у повідомленнях, телефоном або під час відеозустрічі за домовленістю.",
         "en": "We discuss your plans remotely by message, phone or an arranged video meeting."
       }
     },
     "form": {
-      "heading": { "ua": "Напишіть нам", "en": "Write to us" },
+      "heading": {
+        "ua": "Напишіть нам",
+        "en": "Write to us"
+      },
       "description": {
         "ua": "Залиште повідомлення та контакт — ми зможемо повернутися до вас із відповіддю.",
         "en": "Leave a message and contact details so we can get back to you."
@@ -920,7 +965,10 @@
     "telegram": "@obrii_travel",
     "whatsapp": "+38 000 000 00 00",
     "email": "hello@obrii.travel",
-    "workingHours": { "ua": "", "en": "" },
+    "workingHours": {
+      "ua": "",
+      "en": ""
+    },
     "instagram": "",
     "facebook": ""
   },
@@ -968,15 +1016,36 @@
         "Знайомство",
         "Визначаємо очікування, склад подорожі, бюджет і важливі деталі."
       ],
-      ["Концепція", "Пропонуємо один або кілька сценаріїв."],
-      ["Організація", "Бронюємо і координуємо всі складові."],
-      ["Супровід", "Залишаємося на зв’язку до повернення додому."]
+      [
+        "Концепція",
+        "Пропонуємо один або кілька сценаріїв."
+      ],
+      [
+        "Організація",
+        "Бронюємо і координуємо всі складові."
+      ],
+      [
+        "Супровід",
+        "Залишаємося на зв’язку до повернення додому."
+      ]
     ],
     "en": [
-      ["Discovery", "We define expectations, travelers, budget and details."],
-      ["Concept", "We propose one or several scenarios."],
-      ["Arrangements", "We book and coordinate every component."],
-      ["Support", "We stay in touch until you return home."]
+      [
+        "Discovery",
+        "We define expectations, travelers, budget and details."
+      ],
+      [
+        "Concept",
+        "We propose one or several scenarios."
+      ],
+      [
+        "Arrangements",
+        "We book and coordinate every component."
+      ],
+      [
+        "Support",
+        "We stay in touch until you return home."
+      ]
     ]
   },
   "formatCards": {
