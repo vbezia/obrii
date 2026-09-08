@@ -20,6 +20,7 @@ type Path = (string | number)[];
 const sections = [
   ['offers', 'Подорожі'],
   ['hero', 'Перший екран'],
+  ['concierge', 'Консьєрж'],
   ['owners', 'Співвласники'],
   ['texts', 'Тексти та сторінки'],
   ['settings', 'Контакти та SEO'],
@@ -148,11 +149,11 @@ export function AdminEditor({
     setDirty(true);
     setNotice('');
   }
-  function value(path: Path): string | number {
+  function value(path: Path): string | number | boolean {
     return path.reduce<unknown>(
       (result, key) => (result as Record<string, unknown>)?.[key],
       data,
-    ) as string | number;
+    ) as string | number | boolean;
   }
   function field(label: string, path: Path, multiline = false, type = 'text') {
     const id = `field-${path.join('-')}`;
@@ -162,7 +163,7 @@ export function AdminEditor({
         {multiline ? (
           <Textarea
             id={id}
-            value={value(path) ?? ''}
+            value={String(value(path) ?? '')}
             onChange={(e) => change(path, e.target.value)}
             rows={4}
           />
@@ -170,7 +171,7 @@ export function AdminEditor({
           <Input
             id={id}
             type={type}
-            value={value(path) ?? ''}
+            value={String(value(path) ?? '')}
             onChange={(e) =>
               change(
                 path,
@@ -180,6 +181,20 @@ export function AdminEditor({
           />
         )}
       </div>
+    );
+  }
+  function toggle(label: string, path: Path) {
+    const id = `toggle-${path.join('-')}`;
+    return (
+      <label className="admin-toggle" htmlFor={id} key={id}>
+        <input
+          id={id}
+          type="checkbox"
+          checked={Boolean(value(path))}
+          onChange={(event) => change(path, event.target.checked)}
+        />
+        <span>{label}</span>
+      </label>
     );
   }
   async function upload(file: File | undefined, path: Path) {
@@ -689,6 +704,331 @@ export function AdminEditor({
                   <Group title="Текст першого екрана">
                     {field('Заголовок', ['copy', locale, 'heroTitle'])}
                     {field('Опис', ['copy', locale, 'heroText'], true)}
+                  </Group>
+                </>
+              )}
+              {section === 'concierge' && (
+                <>
+                  <p className="admin-intro">
+                    Контент окремої сторінки /concierge. Системні поля форми та
+                    Telegram-доставка залишаються під контролем розробника.
+                  </p>
+                  <Group title="Перший екран">
+                    {photo('Зображення', ['conciergePage', 'hero', 'image'])}
+                    {field('Опис зображення', [
+                      'conciergePage',
+                      'hero',
+                      'alt',
+                      locale,
+                    ])}
+                    {field('Надзаголовок', [
+                      'conciergePage',
+                      'hero',
+                      'eyebrow',
+                      locale,
+                    ])}
+                    {field('Заголовок', [
+                      'conciergePage',
+                      'hero',
+                      'title',
+                      locale,
+                    ])}
+                    {field(
+                      'Опис',
+                      ['conciergePage', 'hero', 'description', locale],
+                      true,
+                    )}
+                    <div className="admin-grid">
+                      {field('Головна кнопка', [
+                        'conciergePage',
+                        'hero',
+                        'primaryCta',
+                        locale,
+                      ])}
+                      {field('Друга кнопка', [
+                        'conciergePage',
+                        'hero',
+                        'secondaryCta',
+                        locale,
+                      ])}
+                    </div>
+                  </Group>
+                  <Group title="Послуги">
+                    <div className="admin-grid">
+                      {field('Надзаголовок', [
+                        'conciergePage',
+                        'services',
+                        'eyebrow',
+                        locale,
+                      ])}
+                      {field('Заголовок', [
+                        'conciergePage',
+                        'services',
+                        'heading',
+                        locale,
+                      ])}
+                    </div>
+                    {field(
+                      'Вступ',
+                      ['conciergePage', 'services', 'intro', locale],
+                      true,
+                    )}
+                  </Group>
+                  <div className="admin-grid">
+                    {data.conciergePage.services.items.map((service, i) => (
+                      <Group title={service.title[locale]} key={service.id}>
+                        <small className="admin-stable-id">
+                          ID: {service.id}
+                        </small>
+                        {toggle('Показувати на сайті', [
+                          'conciergePage',
+                          'services',
+                          'items',
+                          i,
+                          'visible',
+                        ])}
+                        {field(
+                          'Порядок',
+                          ['conciergePage', 'services', 'items', i, 'order'],
+                          false,
+                          'number',
+                        )}
+                        {photo('Фото', [
+                          'conciergePage',
+                          'services',
+                          'items',
+                          i,
+                          'image',
+                        ])}
+                        {field('Опис фото', [
+                          'conciergePage',
+                          'services',
+                          'items',
+                          i,
+                          'alt',
+                          locale,
+                        ])}
+                        {field('Назва', [
+                          'conciergePage',
+                          'services',
+                          'items',
+                          i,
+                          'title',
+                          locale,
+                        ])}
+                        {field(
+                          'Опис',
+                          [
+                            'conciergePage',
+                            'services',
+                            'items',
+                            i,
+                            'description',
+                            locale,
+                          ],
+                          true,
+                        )}
+                      </Group>
+                    ))}
+                  </div>
+                  <Group title="Процес">
+                    <div className="admin-grid">
+                      {field('Надзаголовок', [
+                        'conciergePage',
+                        'process',
+                        'eyebrow',
+                        locale,
+                      ])}
+                      {field('Заголовок', [
+                        'conciergePage',
+                        'process',
+                        'heading',
+                        locale,
+                      ])}
+                    </div>
+                    {data.conciergePage.process.steps.map((step, i) => (
+                      <div className="admin-grid" key={step.number}>
+                        {field(`Крок ${step.number}`, [
+                          'conciergePage',
+                          'process',
+                          'steps',
+                          i,
+                          'title',
+                          locale,
+                        ])}
+                        {field(
+                          'Опис',
+                          [
+                            'conciergePage',
+                            'process',
+                            'steps',
+                            i,
+                            'description',
+                            locale,
+                          ],
+                          true,
+                        )}
+                      </div>
+                    ))}
+                  </Group>
+                  <Group title="Приклади запитів">
+                    <div className="admin-grid">
+                      {field('Надзаголовок', [
+                        'conciergePage',
+                        'examples',
+                        'eyebrow',
+                        locale,
+                      ])}
+                      {field('Заголовок', [
+                        'conciergePage',
+                        'examples',
+                        'heading',
+                        locale,
+                      ])}
+                    </div>
+                    {data.conciergePage.examples.items.map((example, i) => (
+                      <div className="admin-grid" key={example.id}>
+                        {toggle('Показувати', [
+                          'conciergePage',
+                          'examples',
+                          'items',
+                          i,
+                          'visible',
+                        ])}
+                        {field(
+                          'Порядок',
+                          ['conciergePage', 'examples', 'items', i, 'order'],
+                          false,
+                          'number',
+                        )}
+                        {field('Назва', [
+                          'conciergePage',
+                          'examples',
+                          'items',
+                          i,
+                          'title',
+                          locale,
+                        ])}
+                        {field(
+                          'Опис',
+                          [
+                            'conciergePage',
+                            'examples',
+                            'items',
+                            i,
+                            'text',
+                            locale,
+                          ],
+                          true,
+                        )}
+                      </div>
+                    ))}
+                    {field('Кнопка іншого запиту', [
+                      'conciergePage',
+                      'examples',
+                      'otherCta',
+                      locale,
+                    ])}
+                  </Group>
+                  <Group title="Форма">
+                    {field('Надзаголовок', [
+                      'conciergePage',
+                      'form',
+                      'eyebrow',
+                      locale,
+                    ])}
+                    {field('Заголовок', [
+                      'conciergePage',
+                      'form',
+                      'heading',
+                      locale,
+                    ])}
+                    {field(
+                      'Вступ',
+                      ['conciergePage', 'form', 'intro', locale],
+                      true,
+                    )}
+                    {field(
+                      'Примітка',
+                      ['conciergePage', 'form', 'note', locale],
+                      true,
+                    )}
+                    {field(
+                      'Повідомлення про успіх',
+                      ['conciergePage', 'form', 'success', locale],
+                      true,
+                    )}
+                    {field(
+                      'Повідомлення про помилку',
+                      ['conciergePage', 'form', 'error', locale],
+                      true,
+                    )}
+                  </Group>
+                  <Group title="Поширені запитання">
+                    <div className="admin-grid">
+                      {field('Надзаголовок', [
+                        'conciergePage',
+                        'faq',
+                        'eyebrow',
+                        locale,
+                      ])}
+                      {field('Заголовок', [
+                        'conciergePage',
+                        'faq',
+                        'heading',
+                        locale,
+                      ])}
+                    </div>
+                    {data.conciergePage.faq.items.map((faq, i) => (
+                      <div className="admin-grid" key={faq.id}>
+                        {toggle('Показувати', [
+                          'conciergePage',
+                          'faq',
+                          'items',
+                          i,
+                          'visible',
+                        ])}
+                        {field(
+                          'Порядок',
+                          ['conciergePage', 'faq', 'items', i, 'order'],
+                          false,
+                          'number',
+                        )}
+                        {field('Питання', [
+                          'conciergePage',
+                          'faq',
+                          'items',
+                          i,
+                          'question',
+                          locale,
+                        ])}
+                        {field(
+                          'Відповідь',
+                          [
+                            'conciergePage',
+                            'faq',
+                            'items',
+                            i,
+                            'answer',
+                            locale,
+                          ],
+                          true,
+                        )}
+                      </div>
+                    ))}
+                  </Group>
+                  <Group title="SEO сторінки">
+                    {field('Заголовок', ['conciergePage', 'seo', 'title'])}
+                    {field(
+                      'Опис',
+                      ['conciergePage', 'seo', 'description'],
+                      true,
+                    )}
+                    {photo('Зображення для поширення', [
+                      'conciergePage',
+                      'seo',
+                      'image',
+                    ])}
                   </Group>
                 </>
               )}

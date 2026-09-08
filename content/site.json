@@ -19,6 +19,354 @@
       "route changes and on-trip support"
     ]
   },
+  "conciergePage": {
+    "hero": {
+      "image": "/assets/concierge/hero.webp",
+      "alt": {
+        "ua": "Приватна тераса над Середземним морем",
+        "en": "Private terrace overlooking the Mediterranean Sea"
+      },
+      "eyebrow": {
+        "ua": "КОНСЬЄРЖ-СЕРВІС",
+        "en": "CONCIERGE SERVICE"
+      },
+      "title": {
+        "ua": "Ваші побажання. Наша увага до деталей.",
+        "en": "Your wishes. Our attention to detail."
+      },
+      "description": {
+        "ua": "Приватний трансфер, особлива вечеря, вілла біля моря чи подорож навколо важливої події. Розкажіть, що ви задумали, — команда OBRII допоможе організувати деталі.",
+        "en": "A private transfer, a special dinner, a villa by the sea or a journey built around an important event. Tell us what you have in mind and OBRII will help arrange the details."
+      },
+      "primaryCta": {
+        "ua": "Залишити запит",
+        "en": "Send a request"
+      },
+      "secondaryCta": {
+        "ua": "Переглянути послуги",
+        "en": "Explore services"
+      }
+    },
+    "services": {
+      "eyebrow": {
+        "ua": "МОЖЛИВОСТІ",
+        "en": "POSSIBILITIES"
+      },
+      "heading": {
+        "ua": "Що ми можемо організувати",
+        "en": "What we can arrange"
+      },
+      "intro": {
+        "ua": "Від окремої деталі до повного сценарію — з урахуванням місця, часу та вашого ритму.",
+        "en": "From one detail to a complete scenario, shaped around place, timing and your pace."
+      },
+      "items": [
+        {
+          "id": "aviation",
+          "image": "/assets/concierge/aviation.webp",
+          "alt": {
+            "ua": "Приватний літак біля термінала",
+            "en": "Private aircraft beside a terminal"
+          },
+          "title": {
+            "ua": "Приватна авіація та аеропорти",
+            "en": "Private aviation and airports"
+          },
+          "description": {
+            "ua": "Підбір приватного перельоту, VIP-супровід і допомога з організацією сервісів в аеропортах.",
+            "en": "Private flight sourcing, VIP assistance and help arranging airport services."
+          },
+          "visible": true,
+          "order": 1
+        },
+        {
+          "id": "transfers",
+          "image": "/assets/concierge/transfers.webp",
+          "alt": {
+            "ua": "Автомобіль бізнес-класу біля готелю",
+            "en": "Executive car waiting by a hotel"
+          },
+          "title": {
+            "ua": "Трансфери та автомобілі",
+            "en": "Transfers and cars"
+          },
+          "description": {
+            "ua": "Зустріч в аеропорту, персональний водій, автомобіль для міста або подорожі.",
+            "en": "Airport pickup, a personal driver or a car for the city and the road ahead."
+          },
+          "visible": true,
+          "order": 2
+        },
+        {
+          "id": "residences",
+          "image": "/assets/concierge/residences.webp",
+          "alt": {
+            "ua": "Вілла з басейном і яхтою в морі",
+            "en": "Seaside villa with a pool and yacht"
+          },
+          "title": {
+            "ua": "Вілли, яхти та резиденції",
+            "en": "Villas, yachts and residences"
+          },
+          "description": {
+            "ua": "Підбір приватного простору для відпочинку — з урахуванням локації, складу гостей і бажаного сервісу.",
+            "en": "A private place selected around location, guest mix and the service you expect."
+          },
+          "visible": true,
+          "order": 3
+        },
+        {
+          "id": "gastronomy",
+          "image": "/assets/concierge/gastronomy.webp",
+          "alt": {
+            "ua": "Приватна вечеря на терасі біля моря",
+            "en": "Private dinner on a seaside terrace"
+          },
+          "title": {
+            "ua": "Ресторани та гастрономія",
+            "en": "Restaurants and gastronomy"
+          },
+          "description": {
+            "ua": "Бронювання ресторанів, приватні вечері, дегустації та гастрономічні враження.",
+            "en": "Restaurant reservations, private dinners, tastings and culinary experiences."
+          },
+          "visible": true,
+          "order": 4
+        },
+        {
+          "id": "events",
+          "image": "/assets/concierge/events.webp",
+          "alt": {
+            "ua": "Приватна тераса над вечірнім концертом",
+            "en": "Private terrace overlooking an evening concert"
+          },
+          "title": {
+            "ua": "Події та особливі нагоди",
+            "en": "Events and special occasions"
+          },
+          "description": {
+            "ua": "Поїздки на спортивні й культурні події, hospitality-пропозиції, святкування та персональні сюрпризи.",
+            "en": "Sporting and cultural events, hospitality options, celebrations and personal surprises."
+          },
+          "visible": true,
+          "order": 5
+        },
+        {
+          "id": "experiences",
+          "image": "/assets/concierge/experiences.webp",
+          "alt": {
+            "ua": "Приватна екскурсія історичним містом біля моря",
+            "en": "Private guided visit in a historic coastal town"
+          },
+          "title": {
+            "ua": "Персональні враження",
+            "en": "Personal experiences"
+          },
+          "description": {
+            "ua": "Приватні гіди, авторські екскурсії та індивідуальні програми під ваші інтереси.",
+            "en": "Private guides, authored excursions and individual programs shaped around your interests."
+          },
+          "visible": true,
+          "order": 6
+        }
+      ]
+    },
+    "process": {
+      "eyebrow": {
+        "ua": "ЯК ЦЕ ПРАЦЮЄ",
+        "en": "HOW IT WORKS"
+      },
+      "heading": {
+        "ua": "Від побажання до організації",
+        "en": "From a wish to an arrangement"
+      },
+      "steps": [
+        {
+          "number": "01",
+          "title": {
+            "ua": "Ви описуєте запит",
+            "en": "You describe the request"
+          },
+          "description": {
+            "ua": "Розкажіть про побажання, місце, дати та деталі, які для вас важливі.",
+            "en": "Tell us about the place, timing, wishes and details that matter to you."
+          }
+        },
+        {
+          "number": "02",
+          "title": {
+            "ua": "Ми узгоджуємо рішення",
+            "en": "We agree on the solution"
+          },
+          "description": {
+            "ua": "Уточнюємо можливості, пропонуємо варіанти та погоджуємо вартість і умови.",
+            "en": "We clarify possibilities, propose options and agree on cost and terms."
+          }
+        },
+        {
+          "number": "03",
+          "title": {
+            "ua": "Координуємо організацію",
+            "en": "We coordinate the arrangement"
+          },
+          "description": {
+            "ua": "Після вашого підтвердження домовляємося з партнерами та супроводжуємо виконання погодженого запиту.",
+            "en": "After confirmation, we coordinate partners and oversee the agreed request."
+          }
+        }
+      ]
+    },
+    "examples": {
+      "eyebrow": {
+        "ua": "СЦЕНАРІЇ",
+        "en": "SCENARIOS"
+      },
+      "heading": {
+        "ua": "З чим до нас звертаються",
+        "en": "Requests we can explore"
+      },
+      "items": [
+        {
+          "id": "special-dinner",
+          "title": {
+            "ua": "Вечеря з особливим приводом",
+            "en": "Dinner for a special occasion"
+          },
+          "text": {
+            "ua": "Знайти ресторан біля моря, організувати трансфер і підготувати персональний сюрприз.",
+            "en": "Find a restaurant by the sea, arrange a transfer and prepare a personal surprise."
+          },
+          "visible": true,
+          "order": 1
+        },
+        {
+          "id": "event-weekend",
+          "title": {
+            "ua": "Вікенд навколо події",
+            "en": "A weekend built around an event"
+          },
+          "text": {
+            "ua": "Підібрати варіанти відвідування спортивної події, проживання та зручну логістику.",
+            "en": "Explore attendance options for a sporting event, accommodation and convenient logistics."
+          },
+          "visible": true,
+          "order": 2
+        },
+        {
+          "id": "private-rhythm",
+          "title": {
+            "ua": "Відпочинок у власному ритмі",
+            "en": "A stay at your own pace"
+          },
+          "text": {
+            "ua": "Знайти віллу для родини, організувати водія та приватну морську прогулянку.",
+            "en": "Find a family villa, arrange a driver and a private day on the water."
+          },
+          "visible": true,
+          "order": 3
+        }
+      ],
+      "otherCta": {
+        "ua": "У мене інший запит",
+        "en": "I have another request"
+      }
+    },
+    "form": {
+      "eyebrow": {
+        "ua": "ЗАПИТ",
+        "en": "REQUEST"
+      },
+      "heading": {
+        "ua": "Що організувати для вас?",
+        "en": "What can we arrange for you?"
+      },
+      "intro": {
+        "ua": "Залиште побажання та зручний спосіб зв’язку. Ми уточнимо деталі й запропонуємо наступні кроки.",
+        "en": "Share your wishes and preferred contact. We will clarify the details and suggest next steps."
+      },
+      "note": {
+        "ua": "Можливість виконання, вартість та умови послуги узгоджуються індивідуально. Надсилання запиту не є підтвердженням бронювання.",
+        "en": "Availability, cost and service terms are agreed individually. Sending a request does not confirm a booking."
+      },
+      "success": {
+        "ua": "Дякуємо! Ваш запит передано команді OBRII. Зв’яжемося з вами за вказаним контактом, щоб уточнити деталі.",
+        "en": "Thank you. Your request has been sent to OBRII. We will use the provided contact to clarify the details."
+      },
+      "error": {
+        "ua": "Не вдалося надіслати запит. Спробуйте ще раз або зв’яжіться з нами через Telegram.",
+        "en": "The request could not be sent. Try again or contact us through Telegram."
+      }
+    },
+    "faq": {
+      "eyebrow": {
+        "ua": "FAQ",
+        "en": "FAQ"
+      },
+      "heading": {
+        "ua": "Кілька відповідей перед зверненням",
+        "en": "A few answers before you contact us"
+      },
+      "items": [
+        {
+          "id": "service-without-tour",
+          "question": {
+            "ua": "Чи можна замовити окрему послугу без туру?",
+            "en": "Can I request a standalone service without a trip?"
+          },
+          "answer": {
+            "ua": "Так, ви можете звернутися з окремим запитом — наприклад, щодо трансферу, ресторану чи приватної екскурсії.",
+            "en": "Yes. You can contact us about a standalone transfer, restaurant or private excursion."
+          },
+          "visible": true,
+          "order": 1
+        },
+        {
+          "id": "pricing",
+          "question": {
+            "ua": "Скільки коштує консьєрж-сервіс?",
+            "en": "How much does the concierge service cost?"
+          },
+          "answer": {
+            "ua": "Вартість залежить від запиту та умов партнерів. Вартість послуг і винагороду OBRII, якщо вона передбачена, погоджуємо до підтвердження замовлення.",
+            "en": "Cost depends on the request and partner terms. Service costs and any OBRII fee are agreed before confirmation."
+          },
+          "visible": true,
+          "order": 2
+        },
+        {
+          "id": "timing",
+          "question": {
+            "ua": "За який час потрібно звертатися?",
+            "en": "How far in advance should I contact you?"
+          },
+          "answer": {
+            "ua": "Що раніше ви звернетеся, то більше варіантів ми зможемо розглянути. Для термінових запитів перевіряємо можливості індивідуально.",
+            "en": "The earlier you contact us, the more options we can explore. Urgent requests are checked individually."
+          },
+          "visible": true,
+          "order": 3
+        },
+        {
+          "id": "availability",
+          "question": {
+            "ua": "Чи гарантуєте ви бронювання або доступ на подію?",
+            "en": "Do you guarantee a booking or event access?"
+          },
+          "answer": {
+            "ua": "Підтвердження залежить від доступності та умов постачальника. Ми повідомимо, що можливо організувати, до оформлення замовлення.",
+            "en": "Confirmation depends on availability and supplier terms. We explain what can be arranged before an order is placed."
+          },
+          "visible": true,
+          "order": 4
+        }
+      ]
+    },
+    "seo": {
+      "title": "Консьєрж-сервіс — приватні подорожі та особливі запити | OBRII",
+      "description": "Консьєрж-сервіс OBRII: трансфери, вілли, яхти, ресторани, події та персональні враження.",
+      "image": "/assets/concierge/hero.webp"
+    }
+  },
   "copy": {
     "ua": {
       "nav": ["Подорожі", "Консьєрж", "Колекції", "Про нас", "Журнал"],

@@ -420,3 +420,27 @@
     display: none;
   }
 }
+
+.admin-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  color: #3f3934;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.admin-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: #83131e;
+}
+
+.admin-stable-id {
+  display: block;
+  color: #7a716a;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+}

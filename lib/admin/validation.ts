@@ -64,6 +64,36 @@ export function validateContent(input: unknown): Content {
       if (!/^(100|\d{1,2})% (100|\d{1,2})%$/.test(pos))
         fail('фокус hero: наприклад 50% 50%');
   });
+  image(data.conciergePage.hero.image);
+  image(data.conciergePage.seo.image);
+  if (
+    data.conciergePage.services.items.length < 1 ||
+    data.conciergePage.services.items.length > 20
+  ) {
+    fail('послуги консьєржа');
+  }
+  const conciergeServiceIds = new Set<string>();
+  data.conciergePage.services.items.forEach((service) => {
+    if (
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(service.id) ||
+      conciergeServiceIds.has(service.id) ||
+      service.id === 'other'
+    ) {
+      fail('унікальний ID послуги консьєржа');
+    }
+    conciergeServiceIds.add(service.id);
+    image(service.image);
+    if (!service.title.ua.trim() || !service.description.ua.trim()) {
+      fail('назва та опис послуги консьєржа');
+    }
+  });
+  if (
+    data.conciergePage.process.steps.length !== 3 ||
+    data.conciergePage.examples.items.length > 20 ||
+    data.conciergePage.faq.items.length > 30
+  ) {
+    fail('структура сторінки консьєржа');
+  }
   data.owners.forEach((o) => {
     image(o.image);
     image(o.holidayImage);

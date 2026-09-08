@@ -56,9 +56,15 @@ function withLocale(path: string, locale: Locale) {
 export function Header({
   locale,
   setLocale,
+  activePath,
+  ctaHref,
+  ctaLabel,
 }: {
   locale: Locale;
   setLocale?: (locale: Locale) => void;
+  activePath?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const t = copy[locale];
@@ -83,6 +89,8 @@ export function Header({
           <Link
             key={`${item}-${index}`}
             href={withLocale(navTargets[index], locale)}
+            className={navTargets[index] === activePath ? 'active' : undefined}
+            aria-current={navTargets[index] === activePath ? 'page' : undefined}
           >
             {item}
           </Link>
@@ -102,10 +110,10 @@ export function Header({
           {locale === 'ua' ? 'EN' : 'UA'}
         </button>
         <Link
-          href={withLocale('/plan-your-trip', locale)}
+          href={ctaHref ?? withLocale('/plan-your-trip', locale)}
           className="obrii-button cta-link header-cta"
         >
-          {t.primaryCta}
+          {ctaLabel ?? t.primaryCta}
         </Link>
         <button
           className="mobile-menu"
@@ -128,17 +136,19 @@ export function Header({
             key={`${item}-${index}`}
             href={withLocale(navTargets[index], locale)}
             onClick={() => setMobileOpen(false)}
+            className={navTargets[index] === activePath ? 'active' : undefined}
+            aria-current={navTargets[index] === activePath ? 'page' : undefined}
           >
             {item}
             <ArrowRight aria-hidden="true" />
           </Link>
         ))}
         <Link
-          href={withLocale('/plan-your-trip', locale)}
+          href={ctaHref ?? withLocale('/plan-your-trip', locale)}
           className="obrii-button cta-link mobile-nav-cta"
           onClick={() => setMobileOpen(false)}
         >
-          {t.primaryCta}
+          {ctaLabel ?? t.primaryCta}
           <ArrowRight aria-hidden="true" />
         </Link>
       </nav>
@@ -146,7 +156,7 @@ export function Header({
   );
 }
 
-function Footer({ locale }: { locale: Locale }) {
+export function Footer({ locale }: { locale: Locale }) {
   return (
     <footer className="footer">
       <div>
