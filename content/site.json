@@ -369,7 +369,7 @@
   },
   "copy": {
     "ua": {
-      "nav": ["Подорожі", "Консьєрж", "Колекції", "Про нас", "Журнал"],
+      "nav": ["Подорожі", "Консьєрж", "Колекції", "Про нас", "Контакти"],
       "heroTitle": "Подорожі, створені навколо вас",
       "heroText": "Від першої ідеї до повернення додому персонально плануємо маршрут і беремо на себе кожну деталь.",
       "primaryCta": "Підібрати подорож",
@@ -389,7 +389,7 @@
       "finalText": "Форма збере ключові побажання, а менеджер OBRII повернеться з уточненнями для персонального підбору."
     },
     "en": {
-      "nav": ["Travel", "Concierge", "Collections", "About", "Stories"],
+      "nav": ["Travel", "Concierge", "Collections", "About", "Contacts"],
       "heroTitle": "Journeys arranged around you",
       "heroText": "From the first idea to the return home, we plan the route personally and take care of every detail.",
       "primaryCta": "Plan your trip",
@@ -731,6 +731,143 @@
       }
     }
   ],
+  "aboutPage": {
+    "hero": {
+      "image": "/assets/offers/como-villa.png",
+      "alt": {
+        "ua": "Тиха приватна резиденція біля озера Комо",
+        "en": "A quiet private residence by Lake Como"
+      },
+      "imagePosition": "50% 50%",
+      "eyebrow": { "ua": "ПРО OBRII", "en": "ABOUT OBRII" },
+      "title": {
+        "ua": "За кожною подорожжю — люди.",
+        "en": "Behind every journey are people."
+      },
+      "description": {
+        "ua": "OBRII — українська туристична агенція, що поєднує досвід у подорожах, персональний сервіс і увагу до деталей. Ми допомагаємо знаходити місця та враження, які відповідають саме вам.",
+        "en": "OBRII is a Ukrainian travel agency combining travel expertise, personal service and attention to detail. We help find places and experiences that feel right for you."
+      },
+      "cta": { "ua": "Познайомитися з командою", "en": "Meet the team" }
+    },
+    "approach": {
+      "heading": {
+        "ua": "Спочатку ви. Потім маршрут.",
+        "en": "You come first. Then the route."
+      },
+      "paragraphs": [
+        {
+          "ua": "Для нас подорож починається з розмови: що вам подобається, як ви хочете провести час і що важливо саме зараз. Від цього залежать напрямок, готель, ритм маршруту й деталі сервісу.",
+          "en": "For us, a journey starts with a conversation: what you enjoy, how you want to spend your time and what matters now. That shapes the destination, hotel, pace and service details."
+        },
+        {
+          "ua": "Ми працюємо з індивідуальними подорожами, готовими пропозиціями туроператорів і консьєрж-запитами. Допомагаємо обрати доречний формат і зрозуміти умови ще до підтвердження замовлення.",
+          "en": "We work with private journeys, ready-made tour operator offers and concierge requests. We help choose the right format and understand the terms before confirmation."
+        }
+      ]
+    },
+    "teamHeading": { "ua": "Співвласники", "en": "Co-owners" },
+    "principles": {
+      "heading": {
+        "ua": "Що важливо в нашій роботі",
+        "en": "What matters in our work"
+      },
+      "items": [
+        {
+          "id": "personal",
+          "title": { "ua": "Персональний підхід", "en": "A personal approach" },
+          "description": {
+            "ua": "Враховуємо ваші побажання, склад подорожі та комфортний ритм.",
+            "en": "We consider your wishes, travel party and comfortable pace."
+          },
+          "order": 1,
+          "visible": true
+        },
+        {
+          "id": "details",
+          "title": { "ua": "Увага до деталей", "en": "Attention to detail" },
+          "description": {
+            "ua": "Продумуємо логістику, проживання й організаційні нюанси разом із вами.",
+            "en": "We consider logistics, accommodation and organisational details with you."
+          },
+          "order": 2,
+          "visible": true
+        },
+        {
+          "id": "clarity",
+          "title": { "ua": "Зрозумілі домовленості", "en": "Clear agreements" },
+          "description": {
+            "ua": "Погоджуємо склад послуг, вартість та умови до підтвердження замовлення.",
+            "en": "We agree services, costs and terms before an order is confirmed."
+          },
+          "order": 3,
+          "visible": true
+        },
+        {
+          "id": "privacy",
+          "title": {
+            "ua": "Повага до приватності",
+            "en": "Respect for privacy"
+          },
+          "description": {
+            "ua": "Дбайливо ставимося до особистої інформації та деталей ваших планів.",
+            "en": "We treat personal information and the details of your plans with care."
+          },
+          "order": 4,
+          "visible": true
+        }
+      ]
+    },
+    "finalCta": {
+      "heading": {
+        "ua": "Познайомимося через вашу наступну подорож?",
+        "en": "Shall we meet through your next journey?"
+      },
+      "description": {
+        "ua": "Розкажіть, куди вас тягне і як ви хочете провести цей час. Допоможемо визначитися з наступними кроками.",
+        "en": "Tell us where you feel drawn and how you want to spend the time. We will help define the next steps."
+      },
+      "primary": { "ua": "Підібрати подорож", "en": "Plan a journey" },
+      "secondary": { "ua": "Зв’язатися з нами", "en": "Contact us" }
+    },
+    "seo": {
+      "title": "Про нас — команда та підхід OBRII",
+      "description": "Познайомтеся з командою OBRII. Індивідуальні подорожі, консьєрж-сервіс і персональна увага до ваших планів.",
+      "image": "/assets/offers/como-villa.png"
+    }
+  },
+  "contactsPage": {
+    "hero": {
+      "eyebrow": { "ua": "КОНТАКТИ", "en": "CONTACTS" },
+      "title": {
+        "ua": "Почнімо з розмови.",
+        "en": "Let’s start with a conversation."
+      },
+      "description": {
+        "ua": "Маєте ідею подорожі, конкретний запит або просто хочете познайомитися? Оберіть зручний спосіб зв’язку.",
+        "en": "Have a travel idea, a specific request or simply want to meet us? Choose a convenient way to get in touch."
+      }
+    },
+    "online": {
+      "heading": { "ua": "Працюємо онлайн", "en": "We work online" },
+      "text": {
+        "ua": "Обговорюємо ваші плани дистанційно — у повідомленнях, телефоном або під час відеозустрічі за домовленістю.",
+        "en": "We discuss your plans remotely by message, phone or an arranged video meeting."
+      }
+    },
+    "form": {
+      "heading": { "ua": "Напишіть нам", "en": "Write to us" },
+      "description": {
+        "ua": "Залиште повідомлення та контакт — ми зможемо повернутися до вас із відповіддю.",
+        "en": "Leave a message and contact details so we can get back to you."
+      }
+    },
+    "seo": {
+      "title": "Контакти OBRII — зв’яжіться з нами",
+      "description": "Зв’яжіться з OBRII щодо подорожі, консьєрж-сервісу або співпраці. Телефон, месенджери, email і форма звернення.",
+      "image": "/assets/hero/beach.png"
+    }
+  },
   "owners": [
     {
       "name": {
@@ -744,6 +881,10 @@
       "note": {
         "ua": "10+ років у туристичній сфері",
         "en": "10+ years in travel"
+      },
+      "description": {
+        "ua": "Туристичний досвід, увага до сервісу та розуміння того, з яких деталей складається вдала подорож.",
+        "en": "Travel expertise, close attention to service and an understanding of the details that shape a successful journey."
       },
       "image": "/assets/team/vladyslav-bezruk.jpg",
       "holidayImage": "/assets/team/vladyslav-bezruk-holiday.webp",
@@ -763,6 +904,10 @@
         "ua": "15+ років в IT-сфері",
         "en": "15+ years in IT"
       },
+      "description": {
+        "ua": "Технологічний досвід і системний підхід, що допомагають робити взаємодію з агенцією зручною та зрозумілою.",
+        "en": "Technology expertise and a systematic approach that make working with the agency convenient and clear."
+      },
       "image": "/assets/team/mykolai-bulaienko.jpg",
       "holidayImage": "/assets/team/mykolai-bulaienko-holiday.webp",
       "imagePosition": "50% 42%",
@@ -774,7 +919,10 @@
     "phone": "+38 000 000 00 00",
     "telegram": "@obrii_travel",
     "whatsapp": "+38 000 000 00 00",
-    "email": "hello@obrii.travel"
+    "email": "hello@obrii.travel",
+    "workingHours": { "ua": "", "en": "" },
+    "instagram": "",
+    "facebook": ""
   },
   "tripFormats": [
     {

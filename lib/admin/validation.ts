@@ -66,6 +66,27 @@ export function validateContent(input: unknown): Content {
   });
   image(data.conciergePage.hero.image);
   image(data.conciergePage.seo.image);
+  image(data.aboutPage.hero.image);
+  image(data.aboutPage.seo.image);
+  image(data.contactsPage.seo.image);
+  if (
+    !/^(100|\d{1,2})% (100|\d{1,2})%$/.test(data.aboutPage.hero.imagePosition)
+  )
+    fail('фокус фото сторінки «Про нас»');
+  if (
+    data.aboutPage.approach.paragraphs.length < 1 ||
+    data.aboutPage.approach.paragraphs.length > 6
+  )
+    fail('текст підходу');
+  const principleIds = new Set<string>();
+  data.aboutPage.principles.items.forEach((item) => {
+    if (
+      !/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.id) ||
+      principleIds.has(item.id)
+    )
+      fail('унікальний ID принципу');
+    principleIds.add(item.id);
+  });
   if (
     data.conciergePage.services.items.length < 1 ||
     data.conciergePage.services.items.length > 20
@@ -123,13 +144,38 @@ export function validateContent(input: unknown): Content {
     for (const pair of [...data.workSteps[locale], ...data.formatCards[locale]])
       if (pair.length !== 2) fail('заголовок та опис блоку');
   }
+  if (!data.site.name.trim()) fail('назва сайту');
+  if (data.site.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.site.email))
+    fail('Email');
   if (
-    !data.site.name.trim() ||
-    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.site.email)
+    data.site.telegram &&
+    !(
+      /^@[A-Za-z0-9_]{5,32}$/.test(data.site.telegram) ||
+      /^https:\/\/(t\.me|telegram\.me)\/[A-Za-z0-9_]{5,32}\/?$/.test(
+        data.site.telegram,
+      )
+    )
   )
-    fail('контакти');
-  if (!/^@[A-Za-z0-9_]{5,32}$/.test(data.site.telegram))
-    fail('Telegram: @username');
+    fail('Telegram: @username або https://t.me/…');
+  for (const phone of [data.site.phone, data.site.whatsapp]) {
+    if (
+      phone &&
+      (!/^[+()\d\s.-]+$/.test(phone) ||
+        !/^\d{7,15}$/.test(phone.replace(/\D/g, '')))
+    )
+      fail('номер телефону');
+  }
+  for (const social of [data.site.instagram, data.site.facebook]) {
+    if (social) {
+      try {
+        const u = new URL(social);
+        if (u.protocol !== 'https:' || u.username || u.password)
+          fail('посилання соцмережі');
+      } catch {
+        fail('посилання соцмережі');
+      }
+    }
+  }
   try {
     const u = new URL(data.seo.url);
     if (

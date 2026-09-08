@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/native-select';
 import { Textarea } from '@/components/ui/textarea';
 import { conciergePage, site, type Locale } from '@/lib/content';
+import { configuredContacts } from '@/lib/contact-links';
 import { cn } from '@/lib/utils';
 
 type ContactMethod = 'telegram' | 'phone' | 'whatsapp' | 'email';
@@ -144,6 +145,9 @@ export function ConciergePage() {
   const [source, setSource] = useState<Record<string, string>>({});
   const requestId = useRef('');
   const labels = ui[locale];
+  const telegramContact = configuredContacts(site).find(
+    (contact) => contact.id === 'telegram',
+  );
 
   const services = useMemo(
     () =>
@@ -641,14 +645,22 @@ export function ConciergePage() {
                     className="concierge-delivery-error concierge-span-two"
                     role="alert"
                   >
-                    <p>{conciergePage.form.error[locale]}</p>
-                    <a
-                      href={`https://t.me/${site.telegram.replace(/^@/, '')}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      Telegram {site.telegram}
-                    </a>
+                    <p>
+                      {telegramContact
+                        ? conciergePage.form.error[locale]
+                        : locale === 'ua'
+                          ? 'Не вдалося надіслати запит. Спробуйте ще раз пізніше.'
+                          : 'The request could not be sent. Please try again later.'}
+                    </p>
+                    {telegramContact && (
+                      <a
+                        href={telegramContact.href}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Telegram {telegramContact.value}
+                      </a>
+                    )}
                   </div>
                 )}
                 <div className="concierge-submit concierge-span-two">

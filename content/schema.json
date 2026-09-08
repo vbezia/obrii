@@ -242,6 +242,86 @@
       }
     }
   ],
+  "aboutPage": {
+    "hero": {
+      "image": "/assets/offers/como-villa.png",
+      "alt": {
+        "ua": "Тиха приватна резиденція біля озера Комо",
+        "en": "A quiet private residence by Lake Como"
+      },
+      "imagePosition": "50% 50%",
+      "eyebrow": { "ua": "ПРО OBRII", "en": "ABOUT OBRII" },
+      "title": {
+        "ua": "За кожною подорожжю — люди.",
+        "en": "Behind every journey are people."
+      },
+      "description": {
+        "ua": "OBRII — українська туристична агенція, що поєднує досвід у подорожах, персональний сервіс і увагу до деталей.",
+        "en": "OBRII is a Ukrainian travel agency combining travel expertise, personal service and attention to detail."
+      },
+      "cta": { "ua": "Познайомитися з командою", "en": "Meet the team" }
+    },
+    "approach": {
+      "heading": {
+        "ua": "Спочатку ви. Потім маршрут.",
+        "en": "You come first. Then the route."
+      },
+      "paragraphs": [{ "ua": "Текст", "en": "Text" }]
+    },
+    "teamHeading": { "ua": "Співвласники", "en": "Co-owners" },
+    "principles": {
+      "heading": {
+        "ua": "Що важливо в нашій роботі",
+        "en": "What matters in our work"
+      },
+      "items": [
+        {
+          "id": "personal",
+          "title": { "ua": "Назва", "en": "Title" },
+          "description": { "ua": "Опис", "en": "Description" },
+          "order": 1,
+          "visible": true
+        }
+      ]
+    },
+    "finalCta": {
+      "heading": {
+        "ua": "Познайомимося через вашу наступну подорож?",
+        "en": "Shall we meet through your next journey?"
+      },
+      "description": { "ua": "Опис", "en": "Description" },
+      "primary": { "ua": "Підібрати подорож", "en": "Plan a journey" },
+      "secondary": { "ua": "Зв’язатися з нами", "en": "Contact us" }
+    },
+    "seo": {
+      "title": "Про нас — команда та підхід OBRII",
+      "description": "Опис",
+      "image": "/assets/offers/como-villa.png"
+    }
+  },
+  "contactsPage": {
+    "hero": {
+      "eyebrow": { "ua": "КОНТАКТИ", "en": "CONTACTS" },
+      "title": {
+        "ua": "Почнімо з розмови.",
+        "en": "Let’s start with a conversation."
+      },
+      "description": { "ua": "Опис", "en": "Description" }
+    },
+    "online": {
+      "heading": { "ua": "Працюємо онлайн", "en": "We work online" },
+      "text": { "ua": "Опис", "en": "Description" }
+    },
+    "form": {
+      "heading": { "ua": "Напишіть нам", "en": "Write to us" },
+      "description": { "ua": "Опис", "en": "Description" }
+    },
+    "seo": {
+      "title": "Контакти OBRII — зв’яжіться з нами",
+      "description": "Опис",
+      "image": "/assets/hero/beach.png"
+    }
+  },
   "owners": [
     {
       "name": {
@@ -256,6 +336,10 @@
         "ua": "10+ років у туристичній сфері",
         "en": "10+ years in travel"
       },
+      "description": {
+        "ua": "Туристичний досвід, увага до сервісу та розуміння деталей.",
+        "en": "Travel expertise and attention to detail."
+      },
       "image": "/assets/team/vladyslav-bezruk.jpg",
       "holidayImage": "/assets/team/vladyslav-bezruk-holiday.webp",
       "imagePosition": "50% 50%",
@@ -267,7 +351,10 @@
     "phone": "+38 000 000 00 00",
     "telegram": "@obrii_travel",
     "whatsapp": "+38 000 000 00 00",
-    "email": "hello@obrii.travel"
+    "email": "hello@obrii.travel",
+    "workingHours": { "ua": "", "en": "" },
+    "instagram": "",
+    "facebook": ""
   },
   "tripFormats": [
     {

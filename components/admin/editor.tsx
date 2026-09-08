@@ -21,9 +21,11 @@ const sections = [
   ['offers', 'Подорожі'],
   ['hero', 'Перший екран'],
   ['concierge', 'Консьєрж'],
+  ['about', 'Про нас'],
+  ['contacts', 'Контакти'],
   ['owners', 'Співвласники'],
   ['texts', 'Тексти та сторінки'],
-  ['settings', 'Контакти та SEO'],
+  ['settings', 'SEO сайту'],
 ] as const;
 type Section = (typeof sections)[number][0];
 const labels: Record<string, string> = {
@@ -1039,6 +1041,11 @@ export function AdminEditor({
                       {field('Ім’я та прізвище', ['owners', i, 'name', locale])}
                       {field('Роль', ['owners', i, 'role', locale])}
                       {field('Досвід', ['owners', i, 'note', locale])}
+                      {field(
+                        'Короткий опис',
+                        ['owners', i, 'description', locale],
+                        true,
+                      )}
                       {photo('Основний портрет', ['owners', i, 'image'])}
                       {field('Позиція основного фото — X% Y%', [
                         'owners',
@@ -1058,6 +1065,243 @@ export function AdminEditor({
                     </Group>
                   ))}
                 </div>
+              )}
+              {section === 'about' && (
+                <>
+                  <Group title="Перший екран">
+                    <div className="admin-grid">
+                      {field('Надзаголовок', [
+                        'aboutPage',
+                        'hero',
+                        'eyebrow',
+                        locale,
+                      ])}
+                      {field('Заголовок', [
+                        'aboutPage',
+                        'hero',
+                        'title',
+                        locale,
+                      ])}
+                      {field(
+                        'Опис',
+                        ['aboutPage', 'hero', 'description', locale],
+                        true,
+                      )}
+                      {field('Кнопка', ['aboutPage', 'hero', 'cta', locale])}
+                    </div>
+                    {photo('Головне зображення', [
+                      'aboutPage',
+                      'hero',
+                      'image',
+                    ])}
+                    {field('Фокус зображення — X% Y%', [
+                      'aboutPage',
+                      'hero',
+                      'imagePosition',
+                    ])}
+                    {field('Альтернативний текст', [
+                      'aboutPage',
+                      'hero',
+                      'alt',
+                      locale,
+                    ])}
+                  </Group>
+                  <Group title="Підхід">
+                    {field('Заголовок', [
+                      'aboutPage',
+                      'approach',
+                      'heading',
+                      locale,
+                    ])}
+                    {data.aboutPage.approach.paragraphs.map((_, i) =>
+                      field(
+                        `Абзац ${i + 1}`,
+                        ['aboutPage', 'approach', 'paragraphs', i, locale],
+                        true,
+                      ),
+                    )}
+                  </Group>
+                  <Group title="Команда">
+                    {field('Заголовок', ['aboutPage', 'teamHeading', locale])}
+                    <p className="admin-hint">
+                      Імена, ролі, досвід, описи й фото редагуються в розділі
+                      «Співвласники».
+                    </p>
+                  </Group>
+                  <Group title="Принципи роботи">
+                    {field('Заголовок', [
+                      'aboutPage',
+                      'principles',
+                      'heading',
+                      locale,
+                    ])}
+                    <div className="admin-grid">
+                      {data.aboutPage.principles.items.map((item, i) => (
+                        <div key={item.id} className="admin-subgroup">
+                          {field('Назва', [
+                            'aboutPage',
+                            'principles',
+                            'items',
+                            i,
+                            'title',
+                            locale,
+                          ])}
+                          {field(
+                            'Опис',
+                            [
+                              'aboutPage',
+                              'principles',
+                              'items',
+                              i,
+                              'description',
+                              locale,
+                            ],
+                            true,
+                          )}
+                          {field(
+                            'Порядок',
+                            ['aboutPage', 'principles', 'items', i, 'order'],
+                            false,
+                            'number',
+                          )}
+                          {toggle('Показувати', [
+                            'aboutPage',
+                            'principles',
+                            'items',
+                            i,
+                            'visible',
+                          ])}
+                        </div>
+                      ))}
+                    </div>
+                  </Group>
+                  <Group title="Фінальний заклик">
+                    {field('Заголовок', [
+                      'aboutPage',
+                      'finalCta',
+                      'heading',
+                      locale,
+                    ])}
+                    {field(
+                      'Опис',
+                      ['aboutPage', 'finalCta', 'description', locale],
+                      true,
+                    )}
+                    <div className="admin-grid">
+                      {field('Головна кнопка', [
+                        'aboutPage',
+                        'finalCta',
+                        'primary',
+                        locale,
+                      ])}
+                      {field('Друге посилання', [
+                        'aboutPage',
+                        'finalCta',
+                        'secondary',
+                        locale,
+                      ])}
+                    </div>
+                  </Group>
+                  <Group title="SEO сторінки">
+                    {field('Заголовок', ['aboutPage', 'seo', 'title'])}
+                    {field('Опис', ['aboutPage', 'seo', 'description'], true)}
+                    {photo('Зображення для поширення', [
+                      'aboutPage',
+                      'seo',
+                      'image',
+                    ])}
+                  </Group>
+                </>
+              )}
+              {section === 'contacts' && (
+                <>
+                  <Group title="Тексти сторінки">
+                    <div className="admin-grid">
+                      {field('Надзаголовок', [
+                        'contactsPage',
+                        'hero',
+                        'eyebrow',
+                        locale,
+                      ])}
+                      {field('Заголовок', [
+                        'contactsPage',
+                        'hero',
+                        'title',
+                        locale,
+                      ])}
+                      {field(
+                        'Вступ',
+                        ['contactsPage', 'hero', 'description', locale],
+                        true,
+                      )}
+                      {field('Заголовок онлайн-роботи', [
+                        'contactsPage',
+                        'online',
+                        'heading',
+                        locale,
+                      ])}
+                      {field(
+                        'Опис онлайн-роботи',
+                        ['contactsPage', 'online', 'text', locale],
+                        true,
+                      )}
+                      {field('Заголовок форми', [
+                        'contactsPage',
+                        'form',
+                        'heading',
+                        locale,
+                      ])}
+                      {field(
+                        'Опис форми',
+                        ['contactsPage', 'form', 'description', locale],
+                        true,
+                      )}
+                    </div>
+                  </Group>
+                  <Group title="Спільні контакти">
+                    <div className="admin-grid">
+                      {field('Телефон', ['site', 'phone'])}
+                      {field('Email', ['site', 'email'], false, 'email')}
+                      {field('Telegram — @username або посилання t.me', [
+                        'site',
+                        'telegram',
+                      ])}
+                      {field('WhatsApp — номер з кодом країни', [
+                        'site',
+                        'whatsapp',
+                      ])}
+                      {field('Години роботи', ['site', 'workingHours', locale])}
+                      {field(
+                        'Instagram — HTTPS-посилання',
+                        ['site', 'instagram'],
+                        false,
+                        'url',
+                      )}
+                      {field(
+                        'Facebook — HTTPS-посилання',
+                        ['site', 'facebook'],
+                        false,
+                        'url',
+                      )}
+                    </div>
+                    <p className="admin-hint">
+                      Порожні або нульові контакти не показуються на сайті.
+                    </p>
+                  </Group>
+                  <Group title="SEO сторінки">
+                    {field('Заголовок', ['contactsPage', 'seo', 'title'])}
+                    {field(
+                      'Опис',
+                      ['contactsPage', 'seo', 'description'],
+                      true,
+                    )}
+                    {photo('Зображення для поширення', [
+                      'contactsPage',
+                      'seo',
+                      'image',
+                    ])}
+                  </Group>
+                </>
               )}
               {section === 'texts' && (
                 <>
@@ -1127,17 +1371,6 @@ export function AdminEditor({
               )}
               {section === 'settings' && (
                 <>
-                  <Group title="Контакти">
-                    <div className="admin-grid">
-                      {field('Телефон', ['site', 'phone'])}
-                      {field('Email', ['site', 'email'], false, 'email')}
-                      {field('Telegram — @username', ['site', 'telegram'])}
-                      {field('WhatsApp — номер з кодом країни', [
-                        'site',
-                        'whatsapp',
-                      ])}
-                    </div>
-                  </Group>
                   <Group title="Пошукові системи та поширення">
                     {field('Заголовок сайту', ['seo', 'title'])}
                     {field('Опис для пошуку', ['seo', 'description'], true)}

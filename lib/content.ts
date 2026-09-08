@@ -12,6 +12,8 @@ export const {
   workSteps,
   conciergeItems,
   conciergePage,
+  aboutPage,
+  contactsPage,
   formatCards,
   pages,
   seo,

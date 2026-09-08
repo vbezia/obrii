@@ -32,6 +32,7 @@ import {
 import { Progress, ProgressLabel } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
+import { configuredContacts } from '@/lib/contact-links';
 import {
   copy,
   formatCards,
@@ -157,23 +158,25 @@ export function Header({
 }
 
 export function Footer({ locale }: { locale: Locale }) {
+  const contacts = configuredContacts(site);
   return (
     <footer className="footer">
       <div>
         <img src="/assets/brand/logo.png" alt="OBRII" />
         <p>{footer.description[locale]}</p>
       </div>
-      <div>
-        <h2>{locale === 'ua' ? 'Контакти' : 'Contacts'}</h2>
-        <a href={`tel:${site.phone.replaceAll(' ', '')}`}>{site.phone}</a>
-        <a href={`mailto:${site.email}`}>{site.email}</a>
-        <a href={`https://wa.me/${site.whatsapp.replace(/\D/g, '')}`}>
-          WhatsApp · {site.whatsapp}
-        </a>
-        <a href={`https://t.me/${site.telegram.replace(/^@/, '')}`}>
-          {site.telegram}
-        </a>
-      </div>
+      {contacts.length > 0 && (
+        <div>
+          <h2>{locale === 'ua' ? 'Контакти' : 'Contacts'}</h2>
+          {contacts.map((contact) => (
+            <a key={contact.id} href={contact.href}>
+              {contact.id === 'whatsapp'
+                ? `WhatsApp · ${contact.value}`
+                : contact.value}
+            </a>
+          ))}
+        </div>
+      )}
       <div>
         <h2>{locale === 'ua' ? 'Документи' : 'Documents'}</h2>
         <Link href={withLocale('/privacy', locale)}>
@@ -397,7 +400,7 @@ function OfferCard({
   );
 }
 
-function OwnerPortrait({
+export function OwnerPortrait({
   owner,
   locale,
 }: {
@@ -422,7 +425,8 @@ function OwnerPortrait({
   const updatePointer = (event: React.PointerEvent<HTMLDivElement>) => {
     if (
       !revealReadyRef.current ||
-      !window.matchMedia('(hover: hover) and (pointer: fine)').matches
+      !window.matchMedia('(hover: hover) and (pointer: fine)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
     ) {
       return;
     }
@@ -453,7 +457,10 @@ function OwnerPortrait({
 
   const showPointerReveal = (event: React.PointerEvent<HTMLDivElement>) => {
     updatePointer(event);
-    if (revealReadyRef.current) {
+    if (
+      revealReadyRef.current &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       frameRef.current?.style.setProperty('--reveal-opacity', '1');
     }
   };
