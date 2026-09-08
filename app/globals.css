@@ -1692,10 +1692,10 @@ dd {
 .concierge-process h2,
 .concierge-request h2,
 .concierge-faq h2 {
-  max-width: 13ch;
+  max-width: 12ch;
   margin-top: 0.55rem;
-  font-size: clamp(2.8rem, 5.2vw, 5.6rem);
-  line-height: 1.06;
+  font-size: 3.5rem;
+  line-height: 1.08;
 }
 
 .concierge-section-heading > p,
@@ -1898,7 +1898,7 @@ dd {
 .concierge-request-intro h2 {
   max-width: 100%;
   margin-bottom: 1.5rem;
-  font-size: 4rem;
+  font-size: 3.5rem;
 }
 
 .concierge-form-frame {
@@ -2062,6 +2062,7 @@ dd {
 .concierge-faq header {
   position: sticky;
   top: 8rem;
+  min-width: 0;
 }
 
 .concierge-faq-list {
@@ -2227,7 +2228,8 @@ dd {
   .concierge-process h2,
   .concierge-request h2,
   .concierge-faq h2 {
-    font-size: clamp(2.55rem, 12vw, 3.8rem);
+    font-size: 2.65rem;
+    line-height: 1.1;
   }
 
   .concierge-service-copy {
