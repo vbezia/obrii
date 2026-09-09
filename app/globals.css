@@ -59,6 +59,8 @@
   );
   --section-space: clamp(4rem, 6.5vw, 6.5rem);
   --copy-muted: #655d56;
+  --title-page-size: clamp(2.75rem, 4.25vw, 5.1rem);
+  --title-section-size: clamp(2.2rem, 3.6vw, 3.9rem);
 }
 
 .dark {
@@ -379,11 +381,13 @@ img {
 h1,
 h2,
 h3 {
+  max-inline-size: 100%;
   margin: 0;
   font-family: var(--font-serif-display);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: 0;
+  overflow-wrap: break-word;
   text-wrap: balance;
 }
 
@@ -527,11 +531,15 @@ h3 {
 
 .section-heading h2,
 .manifesto h2,
-.final-cta h2,
+.final-cta h2 {
+  font-size: var(--title-section-size);
+  line-height: 1.08;
+}
+
 .page-hero h1,
 .detail-hero h1,
 .planner-aside h1 {
-  font-size: clamp(2.65rem, 4.8vw, 5.15rem);
+  font-size: var(--title-page-size);
   line-height: 1.06;
 }
 
@@ -964,7 +972,6 @@ dd {
 
 .planner-aside h1 {
   max-width: 100%;
-  font-size: 3.9rem;
   text-wrap: balance;
 }
 
@@ -1301,7 +1308,7 @@ dd {
   }
 
   .planner-aside h1 {
-    font-size: 3.5rem;
+    font-size: var(--title-page-size);
   }
 }
 
@@ -1436,6 +1443,8 @@ dd {
   :root {
     --page-gutter: 1rem;
     --section-space: 3.25rem;
+    --title-page-size: clamp(2.35rem, 10vw, 3rem);
+    --title-section-size: clamp(2rem, 8.5vw, 2.65rem);
   }
 
   .site-header {
@@ -1559,12 +1568,15 @@ dd {
 
   .section-heading h2,
   .manifesto h2,
-  .final-cta h2,
+  .final-cta h2 {
+    font-size: var(--title-section-size);
+    line-height: 1.08;
+  }
+
   .page-hero h1,
   .detail-hero h1,
   .planner-aside h1 {
-    font-size: clamp(2.35rem, 11vw, 3.4rem);
-    line-height: 1.08;
+    font-size: var(--title-page-size);
   }
 
   .offer-copy h3 {
@@ -1695,9 +1707,10 @@ dd {
 .about-hero h1,
 .contacts-intro h1 {
   margin: 0.6rem 0 1.5rem;
-  max-width: 11ch;
-  font-size: clamp(3.2rem, 5.3vw, 6.5rem);
+  max-width: min(11ch, 100%);
+  font-size: var(--title-page-size);
   line-height: 1.04;
+  overflow-wrap: anywhere;
 }
 
 .about-hero-copy > p:not(.eyebrow) {
@@ -1750,7 +1763,7 @@ dd {
 .about-final h2,
 .contact-form-section h2 {
   margin: 0;
-  font-size: clamp(2.5rem, 4.5vw, 4.8rem);
+  font-size: var(--title-section-size);
   line-height: 1.08;
 }
 
@@ -2009,7 +2022,7 @@ dd {
   margin-bottom: 2rem;
 }
 .contact-form-section h2 {
-  font-size: clamp(2.3rem, 3.8vw, 4rem);
+  font-size: var(--title-section-size);
 }
 .contact-form-section > header > p:last-child {
   color: var(--copy-muted);
@@ -2228,7 +2241,7 @@ dd {
 @media (max-width: 640px) {
   .about-hero h1,
   .contacts-intro h1 {
-    font-size: 3rem;
+    font-size: var(--title-page-size);
     line-height: 1.08;
   }
   .about-hero-media {
@@ -2336,7 +2349,7 @@ dd {
   max-width: 11ch;
   margin: 0.7rem 0 1.35rem;
   color: #fffaf2;
-  font-size: 4.25rem;
+  font-size: min(4rem, var(--title-page-size));
   line-height: 1.05;
 }
 
@@ -2403,7 +2416,7 @@ dd {
 .concierge-faq h2 {
   max-width: 12ch;
   margin-top: 0.55rem;
-  font-size: 3.5rem;
+  font-size: var(--title-section-size);
   line-height: 1.08;
 }
 
@@ -2607,7 +2620,7 @@ dd {
 .concierge-request-intro h2 {
   max-width: 100%;
   margin-bottom: 1.5rem;
-  font-size: 3.5rem;
+  font-size: var(--title-section-size);
 }
 
 .concierge-form-frame {
@@ -2912,7 +2925,7 @@ dd {
 
   .concierge-hero h1 {
     max-width: 11ch;
-    font-size: 3rem;
+    font-size: var(--title-page-size);
     line-height: 1.08;
   }
 
@@ -2938,7 +2951,7 @@ dd {
   .concierge-process h2,
   .concierge-request h2,
   .concierge-faq h2 {
-    font-size: 2.65rem;
+    font-size: var(--title-section-size);
     line-height: 1.1;
   }
 
