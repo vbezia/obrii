@@ -387,8 +387,10 @@ h3 {
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: 0;
-  overflow-wrap: break-word;
+  hyphens: none;
+  overflow-wrap: normal;
   text-wrap: balance;
+  word-break: normal;
 }
 
 .hero-intro h1 {
@@ -1443,8 +1445,8 @@ dd {
   :root {
     --page-gutter: 1rem;
     --section-space: 3.25rem;
-    --title-page-size: clamp(2.35rem, 10vw, 3rem);
-    --title-section-size: clamp(2rem, 8.5vw, 2.65rem);
+    --title-page-size: clamp(2.2rem, 9.5vw, 2.75rem);
+    --title-section-size: clamp(1.9rem, 8vw, 2.4rem);
   }
 
   .site-header {
@@ -1710,7 +1712,6 @@ dd {
   max-width: min(11ch, 100%);
   font-size: var(--title-page-size);
   line-height: 1.04;
-  overflow-wrap: anywhere;
 }
 
 .about-hero-copy > p:not(.eyebrow) {
@@ -2241,6 +2242,7 @@ dd {
 @media (max-width: 640px) {
   .about-hero h1,
   .contacts-intro h1 {
+    max-width: 100%;
     font-size: var(--title-page-size);
     line-height: 1.08;
   }
